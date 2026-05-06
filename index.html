@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PitchPulse | Football Headlines, Rumors & Scores</title>
+    <meta
+      name="description"
+      content="PitchPulse brings football headlines, transfer rumors, fan discussions, and live scorelines into one modern dark experience."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-background"></div>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <div class="brand">
+          <span class="brand-dot"></span>
+          <span class="brand-text">PitchPulse</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#headlines">Headlines</a>
+          <a href="#rumors">Rumors</a>
+          <a href="#discussions">Discussions</a>
+          <a href="#scores">Scores</a>
+          <a href="#fixtures">Fixtures</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-badge">Live Football Intelligence</div>
+        <h1>World Football. Daily Buzz. Zero Noise.</h1>
+        <p>
+          Catchy headlines, transfer whispers, fan debates, and scoreboards from top leagues—all
+          in one silky dark experience.
+        </p>
+        <div class="hero-meta">
+          <span id="last-updated">Updating now…</span>
+          <button id="refresh-btn" class="refresh-btn" type="button">Refresh feeds</button>
+        </div>
+      </section>
+
+      <section id="headlines" class="content-section">
+        <div class="section-head">
+          <h2>Trending Headlines</h2>
+          <span class="status-chip" id="headline-status">Loading</span>
+        </div>
+        <div class="cards-grid" id="headline-cards">
+          <article class="card skeleton-card"></article>
+          <article class="card skeleton-card"></article>
+          <article class="card skeleton-card"></article>
+        </div>
+      </section>
+
+      <section id="rumors" class="content-section">
+        <div class="section-head">
+          <h2>Transfer Rumor Mill</h2>
+          <span class="status-chip" id="rumor-status">Loading</span>
+        </div>
+        <div class="cards-grid two-col" id="rumor-cards">
+          <article class="card skeleton-card"></article>
+          <article class="card skeleton-card"></article>
+        </div>
+      </section>
+
+      <section id="discussions" class="content-section">
+        <div class="section-head">
+          <h2>Fan Discussions</h2>
+          <span class="status-chip" id="discussion-status">Loading</span>
+        </div>
+        <div class="cards-grid two-col" id="discussion-cards">
+          <article class="card skeleton-card"></article>
+          <article class="card skeleton-card"></article>
+        </div>
+      </section>
+
+      <section id="scores" class="content-section">
+        <div class="section-head">
+          <h2>Live & Latest Scores</h2>
+          <span class="status-chip" id="score-status">Loading</span>
+        </div>
+        <div class="scoreboard" id="scoreboard">
+          <div class="score-row skeleton-row"></div>
+          <div class="score-row skeleton-row"></div>
+          <div class="score-row skeleton-row"></div>
+        </div>
+      </section>
+
+      <section id="fixtures" class="content-section">
+        <div class="section-head">
+          <h2>Upcoming Global Fixtures</h2>
+          <span class="status-chip" id="fixture-status">Loading</span>
+        </div>
+        <div class="fixture-grid" id="fixture-grid">
+          <article class="card skeleton-card"></article>
+          <article class="card skeleton-card"></article>
+          <article class="card skeleton-card"></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <p>Built for football obsessives. Updated from public data feeds.</p>
+      </div>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
