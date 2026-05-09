@@ -35,6 +35,8 @@ const els = {
   updatedAt: document.getElementById("last-updated"),
   sliderTrack: document.getElementById("slider-track"),
   sliderDots: document.querySelectorAll(".slider-dot"),
+  sliderPrev: document.getElementById("slider-prev"),
+  sliderNext: document.getElementById("slider-next"),
   status: {
     headlines: document.getElementById("headline-status"),
     rumors: document.getElementById("rumor-status"),
@@ -52,6 +54,14 @@ const initSlider = () => {
   els.sliderDots.forEach((dot, index) => {
     dot.addEventListener("click", () => goToSlide(index));
   });
+  
+  if (els.sliderPrev) {
+    els.sliderPrev.addEventListener("click", () => goToSlide((currentSlide - 1 + totalSlides) % totalSlides));
+  }
+  
+  if (els.sliderNext) {
+    els.sliderNext.addEventListener("click", () => goToSlide((currentSlide + 1) % totalSlides));
+  }
   
   setInterval(() => {
     currentSlide = (currentSlide + 1) % totalSlides;

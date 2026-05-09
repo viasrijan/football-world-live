@@ -5,13 +5,14 @@
   --pitch-green: #1a5d1a;
   --pitch-green-dark: #0f3d0f;
   --pitch-green-light: #2a8a2a;
+  --pitch-green-muted: #3cb371;
   --text-primary: #ffffff;
   --text-secondary: #e5e5e5;
   --text-tertiary: #a3a3a3;
-  --accent: #ffffff;
+  --accent: #3cb371;
   --border: #262626;
   --border-hover: #404040;
-  --glow: rgba(255, 255, 255, 0.4);
+  --glow: rgba(60, 179, 113, 0.4);
   --error-bg: #1a1a1a;
   --error-border: #ef4444;
   --error-text: #fca5a5;
@@ -29,7 +30,7 @@ body {
   min-height: 100%;
   font-family: "DM Sans", system-ui, -apple-system, sans-serif;
   color: var(--text-primary);
-  background: var(--pitch-green-dark);
+  background: var(--bg-deep);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -53,8 +54,8 @@ button {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--pitch-green);
-  border-bottom: 1px solid var(--pitch-green-light);
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--pitch-green);
 }
 
 .nav-wrap {
@@ -71,15 +72,13 @@ button {
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: -0.02em;
-  background: var(--bg-deep);
-  padding: 0.5rem 1rem;
 }
 
 .brand-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--pitch-green-light);
   animation: pulseGlow 3s ease-in-out infinite;
 }
 
@@ -89,7 +88,7 @@ button {
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 8px 2px var(--glow), 0 0 15px 4px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 8px 2px var(--glow), 0 0 15px 4px rgba(60, 179, 113, 0.15);
     transform: scale(1.15);
   }
 }
@@ -97,14 +96,12 @@ button {
 .nav-links {
   display: flex;
   gap: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--bg-deep);
 }
 
 .nav-links a {
-  color: var(--text-secondary);
+  color: var(--pitch-green-muted);
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.2s ease;
 }
 
@@ -116,6 +113,7 @@ button {
 .hero-slider {
   background: var(--bg-deep);
   overflow: hidden;
+  position: relative;
 }
 
 .slider-track {
@@ -134,9 +132,8 @@ button {
 
 .slider-image {
   width: 100%;
-  height: 350px;
+  height: 400px;
   object-fit: cover;
-  border-radius: 0;
 }
 
 .slider-content {
@@ -158,6 +155,7 @@ button {
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  color: var(--pitch-green-muted);
 }
 
 .slider-excerpt {
@@ -174,6 +172,37 @@ button {
   margin-top: 0.5rem;
 }
 
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--pitch-green);
+  color: var(--text-primary);
+  border: none;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  z-index: 10;
+}
+
+.slider-arrow:hover {
+  background: var(--pitch-green-light);
+}
+
+.slider-arrow.prev {
+  left: 1rem;
+}
+
+.slider-arrow.next {
+  right: 1rem;
+}
+
 .slider-nav {
   display: flex;
   gap: 0.5rem;
@@ -185,7 +214,6 @@ button {
 .slider-dot {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
   background: var(--border);
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
@@ -194,6 +222,79 @@ button {
 .slider-dot.active {
   background: var(--pitch-green-light);
   transform: scale(1.2);
+}
+
+/* Magazine Section */
+.magazine-section {
+  background: var(--bg-deep);
+  padding: 3rem 0;
+}
+
+.magazine-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.magazine-featured {
+  position: relative;
+}
+
+.magazine-featured .magazine-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+.magazine-featured .magazine-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.9));
+}
+
+.magazine-featured .magazine-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--pitch-green-muted);
+}
+
+.magazine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.magazine-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-surface);
+}
+
+.magazine-item-image {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.magazine-item-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.magazine-item-title:hover {
+  color: var(--pitch-green-light);
+}
+
+.magazine-item-meta {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin-top: 0.25rem;
 }
 
 /* Content Sections */
@@ -217,6 +318,7 @@ button {
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+  color: var(--pitch-green-muted);
 }
 
 /* Status Chips */
@@ -270,7 +372,7 @@ button {
 
 .card-meta {
   font-size: 0.7rem;
-  color: var(--text-tertiary);
+  color: var(--pitch-green-light);
   margin-bottom: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -335,6 +437,7 @@ button {
   font-size: 1.1rem;
   letter-spacing: 0.05em;
   font-variant-numeric: tabular-nums;
+  color: var(--pitch-green-muted);
 }
 
 .score-meta {
@@ -423,7 +526,11 @@ button {
   }
   
   .slider-image {
-    height: 200px;
+    height: 250px;
+  }
+
+  .magazine-grid {
+    grid-template-columns: 1fr;
   }
 
   .cards-grid,
@@ -453,6 +560,12 @@ button {
 
   .slider-title {
     font-size: 1.5rem;
+  }
+
+  .slider-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
   }
 
   .cards-grid,
