@@ -58,7 +58,8 @@
     .hero-side { display: flex; flex-direction: column; gap: 0.8rem; }
     .hero-side-item { display: flex; align-items: center; gap: 0.8rem; border: 1px solid #333; padding: 0.6rem; border-radius: 0; cursor: pointer; }
     .hero-side-frame { width: 60px; height: 60px; border-radius: 0; overflow: hidden; flex-shrink: 0; }
-    .hero-side-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-side-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .hero-side-item:hover .hero-side-frame img { transform: scale(1.1); }
     .hero-side-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .hero-side-content h3 { font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: var(--white); }
 
