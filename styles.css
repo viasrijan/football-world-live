@@ -45,7 +45,6 @@ button {
   top: 0;
   z-index: 20;
   background: var(--bg-deep);
-  border-bottom: 1px solid #ffffff;
 }
 
 .nav-wrap {
@@ -101,10 +100,9 @@ button {
 
 /* Hero Slider */
 .hero-slider {
-  background: var(--bg-deep);
+  background: #0a2a0a;
   overflow: hidden;
   position: relative;
-  border-bottom: 1px solid #ffffff;
   padding: 1.5rem 0;
 }
 
@@ -121,54 +119,18 @@ button {
 
 .slider-slide {
   min-width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  display: flex;
   align-items: center;
-  padding: 0 1rem;
+  justify-content: center;
+  padding: 0 3rem;
 }
 
 .slider-image {
   width: 100%;
+  max-width: 800px;
   aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 4px;
-}
-
-.slider-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.slider-tag {
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--pitch-green);
-}
-
-.slider-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-}
-
-.slider-excerpt {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.slider-meta {
-  color: var(--text-tertiary);
-  font-size: 0.75rem;
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.3rem;
 }
 
 .slider-arrow {
@@ -177,12 +139,12 @@ button {
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
-  background: transparent;
-  color: var(--pitch-green);
-  border: 1px solid var(--pitch-green);
+  background: #ffffff;
+  color: #000;
+  border: none;
   border-radius: 50%;
-  font-size: 1.4rem;
-  font-weight: 400;
+  font-size: 1.2rem;
+  font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -193,31 +155,31 @@ button {
 
 .slider-arrow:hover {
   background: var(--pitch-green);
-  color: #000;
+  color: #fff;
 }
 
-.slider-arrow.prev { left: -60px; }
-.slider-arrow.next { right: -60px; }
+.slider-arrow.prev { left: 10px; }
+.slider-arrow.next { right: 10px; }
 
 .slider-nav {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
   padding: 1rem;
-  justify-content: center;
-  background: var(--bg-deep);
+  background: #0a2a0a;
 }
 
 .slider-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--border);
+  background: rgba(255,255,255,0.3);
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .slider-dot.active {
-  background: var(--pitch-green);
+  background: #ffffff;
 }
 
 /* Top News Section */
