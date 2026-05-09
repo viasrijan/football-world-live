@@ -105,7 +105,13 @@ button {
   overflow: hidden;
   position: relative;
   border-bottom: 1px solid var(--pitch-green);
-  padding: 1.5rem 5rem;
+  padding: 1rem 0;
+}
+
+.slider-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
 }
 
 .slider-track {
@@ -117,24 +123,26 @@ button {
   min-width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: center;
+  padding: 0 1rem;
 }
 
 .slider-image {
   width: 100%;
   aspect-ratio: 16/9;
   object-fit: cover;
+  border-radius: 4px;
 }
 
 .slider-content {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
 .slider-tag {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -142,7 +150,7 @@ button {
 }
 
 .slider-title {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -151,43 +159,44 @@ button {
 
 .slider-excerpt {
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  max-width: 38ch;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .slider-meta {
   color: var(--text-tertiary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   display: flex;
-  gap: 1.5rem;
-  margin-top: 0.4rem;
+  gap: 1rem;
+  margin-top: 0.3rem;
 }
 
 .slider-arrow {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
   background: transparent;
   color: var(--pitch-green);
-  border: none;
-  font-size: 2.5rem;
-  font-weight: 300;
+  border: 1px solid var(--pitch-green);
+  border-radius: 50%;
+  font-size: 1.2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
   z-index: 10;
 }
 
 .slider-arrow:hover {
-  color: #fff;
+  background: var(--pitch-green);
+  color: #000;
 }
 
-.slider-arrow.prev { left: 0.5rem; }
-.slider-arrow.next { right: 0.5rem; }
+.slider-arrow.prev { left: -18px; }
+.slider-arrow.next { right: -18px; }
 
 .slider-nav {
   display: flex;
@@ -198,8 +207,9 @@ button {
 }
 
 .slider-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   background: var(--border);
   cursor: pointer;
   transition: background 0.2s ease;
