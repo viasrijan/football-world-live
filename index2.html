@@ -15,12 +15,12 @@
     }
 
     :root {
-      --bg-light: #fafafa;
-      --bg-white: #ffffff;
-      --text-dark: #1a1a1a;
-      --text-gray: #6b6b6b;
+      --bg-light: #1a1a1a;
+      --bg-white: #252525;
+      --text-dark: #ffffff;
+      --text-gray: #a0a0a0;
       --accent: #3eba38;
-      --border: #e5e5e5;
+      --border: #333333;
     }
 
     body {
@@ -43,7 +43,7 @@
 
     /* Header */
     .header {
-      background: var(--bg-white);
+      background: var(--bg-light);
       border-bottom: 1px solid var(--border);
       padding: 1.5rem 0;
     }
@@ -108,7 +108,7 @@
       left: 0;
       right: 0;
       padding: 2rem;
-      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
       color: white;
     }
 
@@ -133,7 +133,7 @@
 
     .hero-meta {
       font-size: 0.85rem;
-      opacity: 0.8;
+      opacity: 0.7;
     }
 
     .hero-side {
@@ -240,10 +240,11 @@
 
     /* Footer */
     .footer {
-      background: var(--text-dark);
+      background: var(--bg-white);
       color: white;
       padding: 3rem 0;
       text-align: center;
+      border-top: 1px solid var(--border);
     }
 
     .footer p {
