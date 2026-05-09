@@ -21,7 +21,7 @@ const TEAM_LOGOS = {
   "Juventus": "https://cdn.sofifa.net/teams/109.png",
 };
 
-// Sample fallback data for when API fails
+// Sample data - realistic football content
 const SAMPLE_SCORES = [
   { home: "Manchester City", away: "Arsenal", homeScore: 2, awayScore: 1, league: "Premier League", date: "09/05/26" },
   { home: "Real Madrid", away: "Barcelona", homeScore: 3, awayScore: 2, league: "La Liga", date: "08/05/26" },
@@ -37,6 +37,7 @@ const SAMPLE_FIXTURES = [
   { league: "Premier League", matches: [
     { home: "Manchester City", away: "Aston Villa", date: "10/05/26" },
     { home: "Liverpool", away: "Tottenham", date: "10/05/26" },
+    { home: "Arsenal", away: "Brighton", date: "11/05/26" },
   ]},
   { league: "La Liga", matches: [
     { home: "Real Madrid", away: "Celta Vigo", date: "10/05/26" },
@@ -46,6 +47,45 @@ const SAMPLE_FIXTURES = [
     { home: "Juventus", away: "Roma", date: "10/05/26" },
     { home: "Inter Milan", away: "Lazio", date: "10/05/26" },
   ]},
+];
+
+const SAMPLE_HEADLINES = [
+  { title: "Manchester City edge past Arsenal in thriller", source: "Match Report", copy: "2-1 victory seals crucial three points at the Emirates", href: "#" },
+  { title: "Real Madrid complete comeback against Barcelona", source: "La Liga", copy: "3-2 win in El Clasico keeps title hopes alive", href: "#" },
+  { title: "Bayern Munich thrash Dortmund in derby", source: "Bundesliga", copy: "4-1 win in biggest rivalry match of the season", href: "#" },
+  { title: "PSG maintain lead with Lyon win", source: "Ligue 1", copy: "2-0 victory at Parc des Princes", href: "#" },
+  { title: "Inter Milan stun Juventus with late equaliser", source: "Serie A", copy: "2-2 draw in Turin derby", href: "#" },
+  { title: "Liverpool crush Chelsea at Anfield", source: "Premier League", copy: "3-1 win extends lead at top", href: "#" },
+  { title: "Atletico Madrid edge past Sevilla", source: "La Liga", copy: "1-0 win pushes into top 4", href: "#" },
+  { title: "Newcastle shock Manchester United", source: "Premier League", copy: "2-1 upset at Old Trafford", href: "#" },
+  { title: "AC Milan beat Roma in tight contest", source: "Serie A", copy: "1-0 win in crucial European race", href: "#" },
+  { title: "Dortmund bounce back with big win", source: "Bundesliga", copy: "3-0 victory over Frankfurt", href: "#" },
+];
+
+const SAMPLE_RUMORS = [
+  { title: "Star midfielder linked to Premier League move", ups: 2300, author: "FootyInsider", num_comments: 450, href: "#" },
+  { title: "Chelsea in talks for €80M striker", ups: 1850, author: "TransferWatch", num_comments: 320, href: "#" },
+  { title: "Barcelona prepare €60M bid for Arsenal star", ups: 1650, author: "LaLigaInsider", num_comments: 280, href: "#" },
+  { title: "Bayern target former player return", ups: 1400, author: "BundesligaBuzz", num_comments: 195, href: "#" },
+  { title: "Real Madrid eye €100M wonderkid", ups: 2100, author: "MadridNews", num_comments: 410, href: "#" },
+  { title: "PSG make shock approach for veteran striker", ups: 1200, author: "FrenchFootball", num_comments: 165, href: "#" },
+  { title: "Liverpool consider surprise swoop for midfielder", ups: 980, author: "AnfieldTalk", num_comments: 145, href: "#" },
+  { title: "Inter Milan in negotiations for defender", ups: 870, author: "Calciomercato", num_comments: 120, href: "#" },
+  { title: "Tottenham prepare big offer for forward", ups: 1100, author: "SpursInsider", num_comments: 180, href: "#" },
+  { title: "Juventus target Premier League midfielder", ups: 920, author: "Tuttosport", num_comments: 135, href: "#" },
+];
+
+const SAMPLE_DISCUSSIONS = [
+  { title: "Who will win the title this season?", ups: 3400, author: "SoccerFan", num_comments: 890, href: "#" },
+  { title: "Best XI from this weekend", ups: 2100, author: "Tactics Expert", num_comments: 560, href: "#" },
+  { title: "Underrated players that deserve more recognition", ups: 1800, author: "FootballAnalyst", num_comments: 420, href: "#" },
+  { title: "Most controversial refereeing decisions", ups: 2900, author: "RefWatch", num_comments: 780, href: "#" },
+  { title: "Youth players to watch in 2026", ups: 1500, author: "ScoutNetwork", num_comments: 340, href: "#" },
+  { title: "Best managers in the world right now", ups: 2300, author: "CoachingCorner", num_comments: 610, href: "#" },
+  { title: "Biggest overachievers this season", ups: 1200, author: "StatsGuru", num_comments: 290, href: "#" },
+  { title: "Most exciting young talents", ups: 1900, author: "YouthExpert", num_comments: 450, href: "#" },
+  { title: "Transfer window predictions", ups: 2700, author: "RumourMill", num_comments: 720, href: "#" },
+  { title: "Iconic matches from this decade", ups: 1600, author: "HistoryBuff", num_comments: 380, href: "#" },
 ];
 
 const els = {
@@ -71,7 +111,7 @@ const els = {
 
 // Slider auto-rotation
 let currentSlide = 0;
-const totalSlides = 3;
+const totalSlides = 5;
 
 const initSlider = () => {
   els.sliderDots.forEach((dot, index) => {
@@ -182,15 +222,8 @@ const extractRedditPosts = async (subreddit, limit = 8) => {
   return children.map((item) => item.data).filter(Boolean);
 };
 
-const renderHeadlines = (events, discussions) => {
-  // Use sample data if none provided
-  const items = (discussions && discussions.length > 0 ? discussions : [
-    { title: "Manchester City edge past Arsenal in thriller", source: "Match Report", copy: "2-1 victory seals crucial three points", href: "#" },
-    { title: "Real Madrid complete comeback against Barcelona", source: "La Liga", copy: "3-2 win in El Clasico", href: "#" },
-    { title: "Bayern Munich thrash Dortmund in derby", source: "Bundesliga", copy: "4-1 win in biggest rivalry match", href: "#" },
-    { title: "PSG maintain lead with Lyon win", source: "Ligue 1", copy: "2-0 victory at Parc des Princes", href: "#" },
-  ]).slice(0, 6);
-
+const renderHeadlines = () => {
+  const items = SAMPLE_HEADLINES.slice(0, 10);
   if (items.length === 0) {
     els.headlines.innerHTML = `<article class="card"><p class="card-copy">No headline feed available right now.</p></article>`;
     setStatus("headlines", "Unavailable", "warning");
@@ -200,22 +233,17 @@ const renderHeadlines = (events, discussions) => {
   els.headlines.innerHTML = items
     .map(
       (item) => `<article class="card">
-        <p class="card-meta">${item.source || "PitchPulse"}</p>
+        <p class="card-meta">${item.source}</p>
         <h3 class="card-title">${item.href ? `<a href="${item.href}">${item.title}</a>` : item.title}</h3>
-        <p class="card-copy">${item.copy || item.ups + " votes"}</p>
+        <p class="card-copy">${item.copy}</p>
       </article>`
     )
     .join("");
   setStatus("headlines", "Live", "live");
 };
 
-const renderRumors = (rumors) => {
-  const items = (rumors && rumors.length > 0 ? rumors : [
-    { title: "Star midfielder linked to Premier League move", ups: 2300, author: "FootyInsider", num_comments: 450, href: "#" },
-    { title: "Chelsea in talks for €80M striker", ups: 1850, author: "TransferWatch", num_comments: 320, href: "#" },
-    { title: "Barcelona prepare €60M bid for Arsenal star", ups: 1650, author: "LaLigaInsider", num_comments: 280, href: "#" },
-  ]).slice(0, 6);
-
+const renderRumors = () => {
+  const items = SAMPLE_RUMORS.slice(0, 6);
   if (items.length === 0) {
     els.rumors.innerHTML = `<article class="card"><p class="card-copy">Rumor stream temporarily unavailable.</p></article>`;
     setStatus("rumors", "Unavailable", "warning");
@@ -225,22 +253,17 @@ const renderRumors = (rumors) => {
   els.rumors.innerHTML = items
     .map(
       (post) => `<article class="card">
-        <p class="card-meta">Transfer News • ${(post?.ups || 0).toLocaleString()} votes</p>
-        <h3 class="card-title"><a href="${post?.href || '#'}">${post.title}</a></h3>
-        <p class="card-copy">By ${post?.author || 'unknown'} • ${post?.num_comments || 0} comments</p>
+        <p class="card-meta">Transfer News • ${post.ups.toLocaleString()} votes</p>
+        <h3 class="card-title"><a href="${post.href}">${post.title}</a></h3>
+        <p class="card-copy">By ${post.author} • ${post.num_comments} comments</p>
       </article>`
     )
     .join("");
   setStatus("rumors", "Live", "live");
 };
 
-const renderDiscussions = (discussions) => {
-  const items = (discussions && discussions.length > 0 ? discussions : [
-    { title: "Who will win the title this season?", ups: 3400, author: "SoccerFan", num_comments: 890, href: "#" },
-    { title: "Best XI from this weekend", ups: 2100, author: "Tactics Expert", num_comments: 560, href: "#" },
-    { title: "Underrated players that deserve more recognition", ups: 1800, author: "FootballAnalyst", num_comments: 420, href: "#" },
-  ]).slice(0, 6);
-
+const renderDiscussions = () => {
+  const items = SAMPLE_DISCUSSIONS.slice(0, 6);
   if (items.length === 0) {
     els.discussions.innerHTML = `<article class="card"><p class="card-copy">Discussion feed is currently empty.</p></article>`;
     setStatus("discussions", "Unavailable", "warning");
@@ -250,9 +273,9 @@ const renderDiscussions = (discussions) => {
   els.discussions.innerHTML = items
     .map(
       (post) => `<article class="card">
-        <p class="card-meta">r/soccer • ${(post?.ups || 0).toLocaleString()} votes</p>
-        <h3 class="card-title"><a href="${post?.href || '#'}">${post.title}</a></h3>
-        <p class="card-copy">By ${post?.author || 'unknown'} • ${post?.num_comments || 0} comments</p>
+        <p class="card-meta">r/soccer • ${post.ups.toLocaleString()} votes</p>
+        <h3 class="card-title"><a href="${post.href}">${post.title}</a></h3>
+        <p class="card-copy">By ${post.author} • ${post.num_comments} comments</p>
       </article>`
     )
     .join("");
@@ -347,30 +370,13 @@ const renderFixtures = (leagueData) => {
 
 const loadAll = async () => {
   ["headlines", "rumors", "discussions", "scores", "fixtures"].forEach((k) => setStatus(k, "Loading", "neutral"));
-
-  // Use sample data directly - APIs aren't reliable
+  
+  // Render all sections with full sample data
+  renderHeadlines();
+  renderRumors();
+  renderDiscussions();
   renderScores(SAMPLE_SCORES);
   renderFixtures(SAMPLE_FIXTURES);
-  
-  // Render sample headlines
-  renderHeadlines([], SAMPLE_SCORES.slice(0, 4).map(s => ({
-    title: `${s.home} vs ${s.away}: ${s.homeScore}-${s.awayScore}`,
-    ups: Math.floor(Math.random() * 5000),
-    author: "PitchPulse",
-    permalink: "#"
-  })));
-  
-  // Render sample rumors
-  renderRumors([
-    { title: "Star midfielder linked to Premier League move", ups: 2300, author: "FootyInsider", num_comments: 450, permalink: "#" },
-    { title: "Chelsea in talks for €80M striker", ups: 1850, author: "TransferWatch", num_comments: 320, permalink: "#" },
-  ]);
-  
-  // Render sample discussions  
-  renderDiscussions([
-    { title: "Who will win the title this season?", ups: 3400, author: "SoccerFan", num_comments: 890, permalink: "#" },
-    { title: "Best XI from this weekend", ups: 2100, author: "Tactics Expert", num_comments: 560, permalink: "#" },
-  ]);
 };
 
 // Initialize slider and load data
