@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg-main: #000000; --bg-dark: #000000; --green: #3eba38; --white: #ffffff; --gray: #aaaaaa; --accent: #3eba38; }
+    :root { --bg-main: #000000; --bg-dark: #000000; --accent: #3eba38; --white: #ffffff; --gray: #888888; --accent: #3eba38; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Satoshi', 'Inter', Arial, sans-serif; background: var(--bg-main); color: var(--white); line-height: 1.6; }
     a { text-decoration: none; color: inherit; }
@@ -32,7 +32,7 @@
     /* Hero */
     .hero { background: var(--bg-main); padding: 2rem 0; }
     .hero-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
-    .hero-main { position: relative; border-radius: 8px; overflow: hidden; }
+    .hero-main { position: relative; }
     .hero-main-frame { width: 100%; aspect-ratio: 4/3; position: relative; overflow: hidden; }
     .hero-main-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
@@ -56,11 +56,11 @@
 
     /* Sidebar */
     .hero-side { display: flex; flex-direction: column; gap: 0.8rem; }
-    .hero-side-item { display: flex; align-items: center; gap: 0.8rem; border: 1px solid rgba(255,255,255,0.3); padding: 0.6rem; border-radius: 0; cursor: pointer; }
+    .hero-side-item { display: flex; align-items: center; gap: 0.8rem; border: 1px solid #333; padding: 0.6rem; border-radius: 0; cursor: pointer; }
     .hero-side-frame { width: 60px; height: 60px; border-radius: 0; overflow: hidden; flex-shrink: 0; }
     .hero-side-frame img { width: 100%; height: 100%; object-fit: cover; }
     .hero-side-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-    .hero-side-content h3 { font-size: 0.8rem; font-weight: 600; line-height: 1.3; }
+    .hero-side-content h3 { font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: var(--white); }
 
     .section { background: var(--bg-main); padding: 3rem 0; }
     .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; }
@@ -68,18 +68,20 @@
     .section-dot { width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; animation: redPulse 2s ease-in-out infinite; }
     .view-all { font-size: 0.8rem; color: var(--gray); }
     
-    /* Posts - Custom Card Frame */
+    /* Posts - Tribune Style (clean, minimal, dark) */
     .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .news-card { position: relative; background: #000; }
-    .news-card-top { width: 100%; height: 230px; overflow: hidden; }
-    .news-card-top img { width: 100%; height: 100%; object-fit: cover; }
-    .news-card-frame { position: absolute; bottom: 0; left: 0; right: 0; height: 250px; background: url('images/Post Card.png') center/cover no-repeat; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem; }
-    .news-card .tag { margin-bottom: 0.3rem; }
-    .news-card h3 { font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: white; margin-bottom: 0.2rem; }
-    .news-card p { font-size: 0.65rem; color: #cccccc; }
-    .news-card-meta { font-size: 0.55rem; color: #aaaaaa; margin-top: 0.4rem; padding-top: 0.4rem; border-top: 1px solid rgba(255,255,255,0.3); }
+    .news-card { background: #111; border: 1px solid #222; transition: border-color 0.2s; }
+    .news-card:hover { border-color: var(--accent); }
+    .news-card-top { width: 100%; height: 200px; overflow: hidden; }
+    .news-card-top img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .news-card:hover .news-card-top img { transform: scale(1.05); }
+    .news-card-content { padding: 1rem; }
+    .news-card .tag { margin-bottom: 0.5rem; }
+    .news-card h3 { font-size: 0.95rem; font-weight: 600; line-height: 1.35; color: var(--white); margin-bottom: 0.5rem; }
+    .news-card p { font-size: 0.75rem; color: var(--gray); line-height: 1.5; }
+    .news-card-meta { font-size: 0.65rem; color: #555; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid #222; }
 
-    .footer { background: var(--bg-dark); padding: 2.5rem 0; text-align: center; }
+    .footer { background: var(--bg-dark); padding: 2.5rem 0; text-align: center; border-top: 1px solid #222; }
     .footer p { font-size: 0.8rem; color: var(--gray); }
 
     @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; } .news-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -131,55 +133,55 @@
       <div class="news-grid">
         <article class="news-card">
           <div class="news-card-top"><img src="images/5.jpeg" alt="Derby"></div>
-          <div class="news-card-frame">
+          <div class="news-card-content">
             <span class="tag tag-matchday">Matchday</span>
             <h3>Derby Day Drama Across Europe</h3>
-            <p>All the big derbies in packed weekend.</p>
+            <p>All the big derbies in packed weekend across top leagues.</p>
             <div class="news-card-meta">May 5, 2026</div>
           </div>
         </article>
         <article class="news-card">
           <div class="news-card-top"><img src="images/6.jpeg" alt="Injury"></div>
-          <div class="news-card-frame">
+          <div class="news-card-content">
             <span class="tag tag-news">News</span>
             <h3>Star Player Injury Update</h3>
-            <p>Key player faces race against time.</p>
+            <p>Key player faces race against time for crucial matches.</p>
             <div class="news-card-meta">May 4, 2026</div>
           </div>
         </article>
         <article class="news-card">
           <div class="news-card-top"><img src="images/7.jpeg" alt="Contract"></div>
-          <div class="news-card-frame">
+          <div class="news-card-content">
             <span class="tag tag-transfers">Transfers</span>
             <h3>Key Player Signs New Deal</h3>
-            <p>Club secures future of star player.</p>
+            <p>Club secures future of star player with long-term deal.</p>
             <div class="news-card-meta">May 3, 2026</div>
           </div>
         </article>
         <article class="news-card">
           <div class="news-card-top"><img src="images/8.jpeg" alt="Manager"></div>
-          <div class="news-card-frame">
+          <div class="news-card-content">
             <span class="tag tag-interview">Interview</span>
             <h3>Manager Speaks Out</h3>
-            <p>Exclusive interview with top manager.</p>
+            <p>Exclusive interview with top manager on season.</p>
             <div class="news-card-meta">May 2, 2026</div>
           </div>
         </article>
         <article class="news-card">
           <div class="news-card-top"><img src="images/9.jpeg" alt="Rising Star"></div>
-          <div class="news-card-frame">
+          <div class="news-card-content">
             <span class="tag tag-features">Features</span>
             <h3>Rising Star Breaks Record</h3>
-            <p>Young talent makes history.</p>
+            <p>Young talent makes history with stunning performance.</p>
             <div class="news-card-meta">May 1, 2026</div>
           </div>
         </article>
         <article class="news-card">
           <div class="news-card-top"><img src="images/10.jpeg" alt="Referee"></div>
-          <div class="news-card-frame">
+          <div class="news-card-content">
             <span class="tag tag-news">News</span>
             <h3>Referee Appointment News</h3>
-            <p>Officials for key matches.</p>
+            <p>Officials for key matches announced by UEFA.</p>
             <div class="news-card-meta">April 30, 2026</div>
           </div>
         </article>
