@@ -6,7 +6,8 @@
   <title>PitchPulse - Football News</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -15,24 +16,31 @@
     }
 
     :root {
-      --bg-light: #1a1a1a;
-      --bg-white: #252525;
-      --text-dark: #ffffff;
-      --text-gray: #a0a0a0;
+      --bg-white: #ffffff;
+      --bg-black: #0a0a0a;
+      --bg-dark: #141414;
+      --text-white: #ffffff;
+      --text-black: #0a0a0a;
+      --text-gray: #888888;
       --accent: #3eba38;
-      --border: #333333;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-light);
-      color: var(--text-dark);
+      font-family: 'Satoshi', 'Inter', Arial, sans-serif;
+      background: var(--bg-black);
+      color: var(--text-white);
       line-height: 1.6;
+      font-size: 16px;
     }
 
     a {
       text-decoration: none;
       color: inherit;
+      transition: color 0.2s ease;
     }
 
     .container {
@@ -41,23 +49,26 @@
       padding: 0 2rem;
     }
 
-    /* Header */
+    /* Header - White */
     .header {
-      background: var(--bg-light);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 0;
+      background: var(--bg-white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .header-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1rem 2rem;
     }
 
     .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
+      font-family: 'Satoshi', 'Inter', Arial, sans-serif;
+      font-size: 1.5rem;
       font-weight: 700;
+      color: var(--text-black);
       letter-spacing: -0.02em;
     }
 
@@ -68,21 +79,43 @@
     .nav {
       display: flex;
       gap: 2rem;
+      align-items: center;
     }
 
     .nav a {
       font-size: 0.9rem;
       font-weight: 500;
-      color: var(--text-gray);
-      transition: color 0.2s;
+      color: var(--text-black);
+      opacity: 0.7;
     }
 
     .nav a:hover {
-      color: var(--text-dark);
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
     }
 
     /* Hero */
     .hero {
+      background: var(--bg-black);
       padding: 3rem 0;
     }
 
@@ -98,18 +131,17 @@
 
     .hero-main img {
       width: 100%;
-      height: 500px;
+      height: 480px;
       object-fit: cover;
     }
 
-    .hero-main-content {
+    .hero-overlay {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
       padding: 2rem;
-      background: linear-gradient(transparent, rgba(0,0,0,0.9));
-      color: white;
+      background: linear-gradient(transparent, rgba(0,0,0,0.95));
     }
 
     .category {
@@ -124,8 +156,7 @@
     }
 
     .hero-main h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 700;
       line-height: 1.2;
       margin-bottom: 0.5rem;
@@ -133,9 +164,10 @@
 
     .hero-meta {
       font-size: 0.85rem;
-      opacity: 0.7;
+      color: var(--text-gray);
     }
 
+    /* Sidebar */
     .hero-side {
       display: flex;
       flex-direction: column;
@@ -145,116 +177,143 @@
     .hero-side-item {
       display: flex;
       gap: 1rem;
-      background: var(--bg-white);
+      background: var(--bg-dark);
       padding: 1rem;
-      border: 1px solid var(--border);
+      transition: background 0.2s ease;
+    }
+
+    .hero-side-item:hover {
+      background: #1a1a1a;
     }
 
     .hero-side-item img {
-      width: 120px;
-      height: 80px;
+      width: 100px;
+      height: 70px;
       object-fit: cover;
     }
 
+    .hero-side-content {
+      flex: 1;
+    }
+
     .hero-side-content h3 {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
       line-height: 1.3;
       margin-bottom: 0.3rem;
     }
 
     .hero-side-content .category {
-      background: var(--text-dark);
-      font-size: 0.6rem;
-      padding: 0.2rem 0.5rem;
+      font-size: 0.55rem;
+      padding: 0.15rem 0.4rem;
+      background: var(--text-gray);
     }
 
-    /* Latest News */
+    /* Section */
     .section {
-      padding: 3rem 0;
+      background: var(--bg-black);
+      padding: 4rem 0;
     }
 
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       padding-bottom: 1rem;
-      border-bottom: 2px solid var(--text-dark);
+      border-bottom: 1px solid #222;
     }
 
     .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .section-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .view-all {
+      font-size: 0.85rem;
+      color: var(--text-gray);
     }
 
     .news-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .news-card {
-      background: var(--bg-white);
-      border: 1px solid var(--border);
+      background: var(--bg-dark);
+      transition: transform 0.2s ease;
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
     }
 
     .news-card img {
       width: 100%;
-      height: 200px;
+      height: 180px;
       object-fit: cover;
     }
 
     .news-card-content {
-      padding: 1.5rem;
+      padding: 1.2rem;
     }
 
     .news-card .category {
-      background: var(--text-dark);
-      font-size: 0.65rem;
-      padding: 0.2rem 0.5rem;
+      font-size: 0.6rem;
+      padding: 0.15rem 0.4rem;
+      background: #222;
     }
 
     .news-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 600;
       line-height: 1.3;
-      margin: 0.8rem 0;
+      margin: 0.8rem 0 0.5rem;
     }
 
     .news-card p {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--text-gray);
       line-height: 1.5;
     }
 
     .news-card-meta {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-gray);
       margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
+      padding-top: 0.8rem;
+      border-top: 1px solid #222;
     }
 
     /* Footer */
     .footer {
-      background: var(--bg-white);
-      color: white;
+      background: var(--bg-dark);
       padding: 3rem 0;
       text-align: center;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #222;
     }
 
     .footer p {
-      opacity: 0.6;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      color: var(--text-gray);
     }
 
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; }
       .news-grid { grid-template-columns: repeat(2, 1fr); }
+      .header-inner { flex-wrap: wrap; }
     }
 
     @media (max-width: 640px) {
@@ -265,16 +324,17 @@
 </head>
 <body>
   <header class="header">
-    <div class="container">
-      <div class="header-inner">
-        <a href="index2.html" class="logo">Pitch<span>Pulse</span></a>
-        <nav class="nav">
-          <a href="#">Latest</a>
-          <a href="#">Transfers</a>
-          <a href="#">Leagues</a>
-          <a href="#">Analysis</a>
-        </nav>
-      </div>
+    <div class="header-inner">
+      <a href="index2.html" class="logo">Pitch<span>Pulse</span></a>
+      <nav class="nav">
+        <a href="#" class="nav-link">
+          <span>Latest</span>
+          <span class="nav-dot"></span>
+        </a>
+        <a href="#">Transfers</a>
+        <a href="#">Leagues</a>
+        <a href="#">Analysis</a>
+      </nav>
     </div>
   </header>
 
@@ -283,7 +343,7 @@
       <div class="hero-grid">
         <div class="hero-main">
           <img src="images/1.jpeg" alt="Featured">
-          <div class="hero-main-content">
+          <div class="hero-overlay">
             <span class="category">Featured</span>
             <h1>Champions League Final Set for Historic Showdown</h1>
             <p class="hero-meta">May 9, 2026 • UEFA</p>
@@ -319,7 +379,11 @@
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Latest News</h2>
+        <h2 class="section-title">
+          Latest News
+          <span class="section-dot"></span>
+        </h2>
+        <a href="#" class="view-all">View All →</a>
       </div>
       <div class="news-grid">
         <article class="news-card">
