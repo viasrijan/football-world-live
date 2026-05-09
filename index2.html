@@ -11,7 +11,8 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg-green: #3eba38;
+      --bg-gray: #333333;
+      --bg-gray: #333333;
       --bg-black: #0a0a0a;
       --bg-dark: #141414;
       --text-white: #ffffff;
@@ -28,9 +29,9 @@
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
 
-    /* Header - Green */
+    /*/* Header - Grey */
     .header {
-      background: var(--bg-green);
+      background: var(--bg-gray);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -41,6 +42,8 @@
       align-items: center;
       padding: 1rem 2rem;
     }
+    .logo-dot { display: inline-block; margin-right: 0.5rem; }
+
     .logo {
       font-family: 'Satoshi', 'Inter', Arial, sans-serif;
       font-size: 1.5rem;
@@ -119,10 +122,10 @@
       justify-content: center;
       transition: all 0.2s ease;
     }
-    .slide-btn:hover { background: var(--bg-green); color: white; }
+    .slide-btn:hover { background: var(--bg-gray); color: white; }
     .category {
       display: inline-block;
-      background: var(--bg-green);
+      background: var(--bg-gray);
       color: white;
       font-size: 0.7rem;
       font-weight: 600;
@@ -264,7 +267,7 @@
 <body>
   <header class="header">
     <div class="header-inner">
-      <a href="index2.html" class="logo">Pitch<span>Pulse</span></a>
+      <a href="index2.html" class="logo"><span class="nav-dot"></span> Pitch<span>Pulse</span></a>
       <nav class="nav">
         <a href="#"><span>Latest</span> <span class="nav-dot"></span></a>
         <a href="#">Transfers</a>
