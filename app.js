@@ -23,29 +23,29 @@ const TEAM_LOGOS = {
 
 // Sample data - realistic football content
 const SAMPLE_SCORES = [
-  { home: "Manchester City", away: "Arsenal", homeScore: 2, awayScore: 1, league: "Premier League", date: "09/05/26" },
-  { home: "Real Madrid", away: "Barcelona", homeScore: 3, awayScore: 2, league: "La Liga", date: "08/05/26" },
-  { home: "Bayern Munich", away: "Dortmund", homeScore: 4, awayScore: 1, league: "Bundesliga", date: "08/05/26" },
-  { home: "PSG", away: "Lyon", homeScore: 2, awayScore: 0, league: "Ligue 1", date: "07/05/26" },
-  { home: "Juventus", away: "AC Milan", homeScore: 1, awayScore: 1, league: "Serie A", date: "07/05/26" },
-  { home: "Liverpool", away: "Chelsea", homeScore: 3, awayScore: 1, league: "Premier League", date: "06/05/26" },
-  { home: "Inter Milan", away: "Napoli", homeScore: 2, awayScore: 2, league: "Serie A", date: "06/05/26" },
-  { home: "Atletico Madrid", away: "Sevilla", homeScore: 1, awayScore: 0, league: "La Liga", date: "05/05/26" },
+  { home: "Manchester City", away: "Arsenal", homeScore: 2, awayScore: 1, league: "Premier League", date: "09.05.26" },
+  { home: "Real Madrid", away: "Barcelona", homeScore: 3, awayScore: 2, league: "La Liga", date: "08.05.26" },
+  { home: "Bayern Munich", away: "Dortmund", homeScore: 4, awayScore: 1, league: "Bundesliga", date: "08.05.26" },
+  { home: "PSG", away: "Lyon", homeScore: 2, awayScore: 0, league: "Ligue 1", date: "07.05.26" },
+  { home: "Juventus", away: "AC Milan", homeScore: 1, awayScore: 1, league: "Serie A", date: "07.05.26" },
+  { home: "Liverpool", away: "Chelsea", homeScore: 3, awayScore: 1, league: "Premier League", date: "06.05.26" },
+  { home: "Inter Milan", away: "Napoli", homeScore: 2, awayScore: 2, league: "Serie A", date: "06.05.26" },
+  { home: "Atletico Madrid", away: "Sevilla", homeScore: 1, awayScore: 0, league: "La Liga", date: "05.05.26" },
 ];
 
 const SAMPLE_FIXTURES = [
   { league: "Premier League", matches: [
-    { home: "Manchester City", away: "Aston Villa", date: "10/05/26" },
-    { home: "Liverpool", away: "Tottenham", date: "10/05/26" },
-    { home: "Arsenal", away: "Brighton", date: "11/05/26" },
+    { home: "Manchester City", away: "Aston Villa", date: "10.05.26" },
+    { home: "Liverpool", away: "Tottenham", date: "10.05.26" },
+    { home: "Arsenal", away: "Brighton", date: "11.05.26" },
   ]},
   { league: "La Liga", matches: [
-    { home: "Real Madrid", away: "Celta Vigo", date: "10/05/26" },
-    { home: "Barcelona", away: "Villarreal", date: "10/05/26" },
+    { home: "Real Madrid", away: "Celta Vigo", date: "10.05.26" },
+    { home: "Barcelona", away: "Villarreal", date: "10.05.26" },
   ]},
   { league: "Serie A", matches: [
-    { home: "Juventus", away: "Roma", date: "10/05/26" },
-    { home: "Inter Milan", away: "Lazio", date: "10/05/26" },
+    { home: "Juventus", away: "Roma", date: "10.05.26" },
+    { home: "Inter Milan", away: "Lazio", date: "10.05.26" },
   ]},
 ];
 
@@ -146,12 +146,12 @@ const updateSlider = () => {
   });
 };
 
-// Format date as dd/mm/yy
+// Format date as dd.mm.yy
 const formatDateShort = (dateObj) => {
   const day = String(dateObj.getDate()).padStart(2, "0");
   const month = String(dateObj.getMonth() + 1).padStart(2, "0");
   const year = String(dateObj.getFullYear()).slice(-2);
-  return `${day}/${month}/${year}`;
+  return `${day}.${month}.${year}`;
 };
 
 const setStatus = (key, label, tone = "neutral") => {
@@ -283,13 +283,7 @@ const renderDiscussions = () => {
 };
 
 const getTeamLogo = (teamName) => {
-  // Try to find a matching logo
-  for (const [key, url] of Object.entries(TEAM_LOGOS)) {
-    if (teamName && teamName.toLowerCase().includes(key.toLowerCase())) {
-      return url;
-    }
-  }
-  // Default placeholder
+  // Logos disabled - use text only
   return null;
 };
 
@@ -305,18 +299,16 @@ const renderScores = (events) => {
   els.scores.innerHTML = items
     .map(
       (event) => {
-        const homeLogo = getTeamLogo(event.home || event.strHomeTeam);
-        const awayLogo = getTeamLogo(event.away || event.strAwayTeam);
         const home = event.home || event.strHomeTeam || "Home";
         const away = event.away || event.strAwayTeam || "Away";
         const league = event.league || event.strLeague || "League";
         const dateStr = event.date || event.dateEvent || "";
-        const score = event.homeScore !== undefined ? `${event.homeScore} - ${event.awayScore}` : getScoreline(event);
+        const score = event.homeScore !== undefined ? `${event.homeScore} - ${event.awayScore}` : getScoreline(event));
         
         return `<div class="score-row">
-          <div class="score-home">${homeLogo ? `<img class="team-logo" src="${homeLogo}" alt="${home}" />` : ""}<span>${home}</span></div>
+          <div class="score-home"><span>${home}</span></div>
           <div class="scoreline">${score}</div>
-          <div class="score-away">${awayLogo ? `<img class="team-logo" src="${awayLogo}" alt="${away}" />` : ""}<span>${away}</span></div>
+          <div class="score-away"><span>${away}</span></div>
           <div class="score-meta">${league} • ${dateStr}</div>
         </div>`;
       }
