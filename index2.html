@@ -10,7 +10,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg-main: #0c0c0c;
+      --bg-main: #000000;
       --bg-dark: #000000;
       --bg-card: #000000;
       --text-white: #ffffff;
@@ -27,27 +27,14 @@
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
 
-    /* Header - Full Width Alignment */
-    .header { background: var(--bg-dark); position: sticky; top: 0; z-index: 100; }
-    .header-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 1.5rem;
-    }
-    .logo {
-      font-family: 'Satoshi', 'Inter', Arial, sans-serif;
-      font-size: 1.4rem; font-weight: 700;
-      display: flex; align-items: center;
-    }
+    /* Header */
+    .header { background: var(--bg-dark); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.3); }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; }
+    .logo { font-family: 'Satoshi', 'Inter', Arial, sans-serif; font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; }
     .logo-pitch { color: var(--accent); }
     .logo-pulse { color: var(--text-white); }
-    .logo-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
-      animation: redPulse 2s ease-in-out infinite;
-    }
-    @keyframes softPulse {
+    .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent); animation: greenPulse 2s ease-in-out infinite; }
+    @keyframes greenPulse {
       0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent); }
       50% { opacity: 0.5; box-shadow: 0 0 3px var(--accent), 0 0 6px var(--accent); }
     }
@@ -56,32 +43,17 @@
       50% { opacity: 0.5; box-shadow: 0 0 3px #e74c3c, 0 0 6px #e74c3c; }
     }
     .nav { display: flex; gap: 2rem; align-items: center; }
-    .nav a {
-      font-size: 0.85rem; font-weight: 500;
-      color: var(--text-white); opacity: 0.85;
-      transition: color 0.2s ease;
-    }
+    .nav a { font-size: 0.85rem; font-weight: 500; color: var(--text-white); opacity: 0.85; transition: color 0.2s ease; }
     .nav a:hover { color: var(--accent); opacity: 1; }
-    .nav-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #e74c3c;
-      animation: redPulse 2s ease-in-out infinite;
-    }
+    .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: #e74c3c; animation: redPulse 2s ease-in-out infinite; }
 
     /* Hero */
     .hero { background: var(--bg-main); padding: 2rem 0; }
     .hero-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
-    
-    /* Main Slide - 4:3 Frame */
     .hero-main { position: relative; border-radius: 8px; overflow: hidden; }
     .hero-main-frame { width: 100%; aspect-ratio: 4/3; position: relative; overflow: hidden; }
     .hero-main-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .hero-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.5rem;
-      background: linear-gradient(transparent, rgba(0,0,0,0.9));
-    }
-    /* Side arrows - bigger, unbold */
+    .hero-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
     .slide-arrow {
       position: absolute; top: 50%; transform: translateY(-50%);
       width: 44px; height: 44px;
@@ -94,11 +66,7 @@
     .slide-arrow.prev { left: 1rem; }
     .slide-arrow.next { right: 1rem; }
     
-    /* Tags */
-    .tag {
-      display: inline-block; color: white; font-size: 0.6rem; font-weight: 600;
-      text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 2px;
-    }
+    .tag { display: inline-block; color: white; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 2px; }
     .tag-featured { background: #c0392b; }
     .tag-transfers { background: #1abc9c; }
     .tag-analysis { background: #d68910; }
@@ -108,14 +76,9 @@
     .tag-interview { background: #8e44ad; }
     .tag-features { background: #16a085; }
 
-    .hero-title {
-      font-size: 1.4rem; font-weight: 700; line-height: 1.25;
-      margin: 0.5rem 0 0.3rem;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-    }
+    .hero-title { font-size: 1.4rem; font-weight: 700; line-height: 1.25; margin: 0.5rem 0 0.3rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .hero-meta { font-size: 0.8rem; color: var(--text-gray); }
 
-    /* Sidebar - 1:1 Frames - NO TAGS */
     .hero-side { display: flex; flex-direction: column; gap: 1rem; }
     .hero-side-item { display: flex; gap: 0.8rem; background: var(--bg-card); padding: 0.8rem; border-radius: 4px; cursor: pointer; flex: 1; }
     .hero-side-frame { width: 70px; height: 70px; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
@@ -123,17 +86,12 @@
     .hero-side-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .hero-side-content h3 { font-size: 0.85rem; font-weight: 600; line-height: 1.3; }
 
-    /* Section */
     .section { background: var(--bg-main); padding: 3rem 0; }
-    .section-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #222;
-    }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.3); }
     .section-title { font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; gap: 0.6rem; }
     .section-dot { width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; animation: redPulse 2s ease-in-out infinite; }
     .view-all { font-size: 0.8rem; color: var(--text-gray); }
     
-    /* Posts - 4:3 Frames */
     .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
     .news-card { background: var(--bg-card); border-radius: 4px; overflow: hidden; }
     .news-card:hover { transform: translateY(-4px); }
@@ -143,20 +101,13 @@
     .news-card .tag { font-size: 0.55rem; padding: 0.15rem 0.4rem; }
     .news-card h3 { font-size: 0.95rem; font-weight: 600; margin: 0.6rem 0 0.4rem; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; display: -webkit-box; }
     .news-card p { font-size: 0.8rem; color: var(--text-gray); }
-    .news-card-meta { font-size: 0.7rem; color: var(--text-gray); margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid #222; }
+    .news-card-meta { font-size: 0.7rem; color: var(--text-gray); margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid rgba(255,255,255,0.2); }
 
-    /* Footer - Full Width Alignment */
-    .footer { background: var(--bg-dark); padding: 2.5rem 0; text-align: center; border-top: 1px solid #222; }
+    .footer { background: var(--bg-dark); padding: 2.5rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.3); }
     .footer p { font-size: 0.8rem; color: var(--text-gray); }
 
-    @media (max-width: 800px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .news-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .news-grid { grid-template-columns: 1fr; }
-      .nav { display: none; }
-    }
+    @media (max-width: 800px) { .hero-grid { grid-template-columns: 1fr; } .news-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .news-grid { grid-template-columns: 1fr; } .nav { display: none; } }
   </style>
 </head>
 <body>
@@ -178,8 +129,7 @@
         <div class="hero-main">
           <div class="hero-main-frame">
             <a href="#"><img src="images/1.jpeg" alt="Featured" id="main-slide"></a>
-            <div class="hero-overlay">
-              <span class="tag tag-featured">Featured</span>
+            <div class="hero-overlay"><span class="tag tag-featured">Featured</span>
               <h1 class="hero-title">Champions League Final Set for Historic Showdown</h1>
               <p class="hero-meta">May 9, 2026 • UEFA</p>
             </div>
@@ -188,18 +138,9 @@
           <button class="slide-arrow next" onclick="nextSlide()">&gt;</button>
         </div>
         <div class="hero-side">
-          <div class="hero-side-item">
-            <div class="hero-side-frame"><img src="images/2.jpeg" alt="Transfer"></div>
-            <div class="hero-side-content"><h3>Record Transfer: Star Joins Premier League</h3></div>
-          </div>
-          <div class="hero-side-item">
-            <div class="hero-side-frame"><img src="images/3.jpeg" alt="Title Race"></div>
-            <div class="hero-side-content"><h3>Title Race Heats Up As Teams Stack Points</h3></div>
-          </div>
-          <div class="hero-side-item">
-            <div class="hero-side-frame"><img src="images/4.jpeg" alt="El Clasico"></div>
-            <div class="hero-side-content"><h3>El Clasico: Real vs Barca Renew Rivalry</h3></div>
-          </div>
+          <div class="hero-side-item"><div class="hero-side-frame"><img src="images/2.jpeg"></div><div class="hero-side-content"><h3>Record Transfer: Star Joins Premier League</h3></div></div>
+          <div class="hero-side-item"><div class="hero-side-frame"><img src="images/3.jpeg"></div><div class="hero-side-content"><h3>Title Race Heats Up As Teams Stack Points</h3></div></div>
+          <div class="hero-side-item"><div class="hero-side-frame"><img src="images/4.jpeg"></div><div class="hero-side-content"><h3>El Clasico: Real vs Barca Renew Rivalry</h3></div></div>
         </div>
       </div>
     </div>
@@ -212,60 +153,12 @@
         <a href="#" class="view-all">View All →</a>
       </div>
       <div class="news-grid">
-        <article class="news-card">
-          <div class="news-card-frame"><img src="images/5.jpeg" alt="Derby"></div>
-          <div class="news-card-content">
-            <span class="tag tag-matchday">Matchday</span>
-            <h3>Derby Day Drama Across Europe</h3>
-            <p>All the big derbies in packed weekend.</p>
-            <div class="news-card-meta">May 5, 2026</div>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="news-card-frame"><img src="images/6.jpeg" alt="Injury"></div>
-          <div class="news-card-content">
-            <span class="tag tag-news">News</span>
-            <h3>Star Player Injury Update</h3>
-            <p>Key player faces race against time.</p>
-            <div class="news-card-meta">May 4, 2026</div>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="news-card-frame"><img src="images/7.jpeg" alt="Contract"></div>
-          <div class="news-card-content">
-            <span class="tag tag-transfers">Transfers</span>
-            <h3>Key Player Signs New Deal</h3>
-            <p>Club secures future of star player.</p>
-            <div class="news-card-meta">May 3, 2026</div>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="news-card-frame"><img src="images/8.jpeg" alt="Manager"></div>
-          <div class="news-card-content">
-            <span class="tag tag-interview">Interview</span>
-            <h3>Manager Speaks Out</h3>
-            <p>Exclusive interview with top manager.</p>
-            <div class="news-card-meta">May 2, 2026</div>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="news-card-frame"><img src="images/9.jpeg" alt="Rising Star"></div>
-          <div class="news-card-content">
-            <span class="tag tag-features">Features</span>
-            <h3>Rising Star Breaks Record</h3>
-            <p>Young talent makes history.</p>
-            <div class="news-card-meta">May 1, 2026</div>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="news-card-frame"><img src="images/10.jpeg" alt="Referee"></div>
-          <div class="news-card-content">
-            <span class="tag tag-news">News</span>
-            <h3>Referee Appointment News</h3>
-            <p>Officials for key matches announced.</p>
-            <div class="news-card-meta">April 30, 2026</div>
-          </div>
-        </article>
+        <article class="news-card"><div class="news-card-frame"><img src="images/5.jpeg"></div><div class="news-card-content"><span class="tag tag-matchday">Matchday</span><h3>Derby Day Drama Across Europe</h3><p>All the big derbies in packed weekend.</p><div class="news-card-meta">May 5, 2026</div></div></article>
+        <article class="news-card"><div class="news-card-frame"><img src="images/6.jpeg"></div><div class="news-card-content"><span class="tag tag-news">News</span><h3>Star Player Injury Update</h3><p>Key player faces race against time.</p><div class="news-card-meta">May 4, 2026</div></div></article>
+        <article class="news-card"><div class="news-card-frame"><img src="images/7.jpeg"></div><div class="news-card-content"><span class="tag tag-transfers">Transfers</span><h3>Key Player Signs New Deal</h3><p>Club secures future of star player.</p><div class="news-card-meta">May 3, 2026</div></div></article>
+        <article class="news-card"><div class="news-card-frame"><img src="images/8.jpeg"></div><div class="news-card-content"><span class="tag tag-interview">Interview</span><h3>Manager Speaks Out</h3><p>Exclusive interview with top manager.</p><div class="news-card-meta">May 2, 2026</div></div></article>
+        <article class="news-card"><div class="news-card-frame"><img src="images/9.jpeg"></div><div class="news-card-content"><span class="tag tag-features">Features</span><h3>Rising Star Breaks Record</h3><p>Young talent makes history.</p><div class="news-card-meta">May 1, 2026</div></div></article>
+        <article class="news-card"><div class="news-card-frame"><img src="images/10.jpeg"></div><div class="news-card-content"><span class="tag tag-news">News</span><h3>Referee Appointment News</h3><p>Officials for key matches announced.</p><div class="news-card-meta">April 30, 2026</div></div></article>
       </div>
     </div>
   </section>
