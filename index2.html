@@ -9,144 +9,120 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Satoshi:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg-white: #ffffff;
+      --bg-green: #3eba38;
       --bg-black: #0a0a0a;
       --bg-dark: #141414;
       --text-white: #ffffff;
-      --text-black: #0a0a0a;
       --text-gray: #888888;
       --accent: #3eba38;
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Satoshi', 'Inter', Arial, sans-serif;
       background: var(--bg-black);
       color: var(--text-white);
       line-height: 1.6;
-      font-size: 16px;
     }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-      transition: color 0.2s ease;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* Header - White */
+    /* Header - Green */
     .header {
-      background: var(--bg-white);
+      background: var(--bg-green);
       position: sticky;
       top: 0;
       z-index: 100;
     }
-
     .header-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
     }
-
     .logo {
       font-family: 'Satoshi', 'Inter', Arial, sans-serif;
       font-size: 1.5rem;
       font-weight: 700;
-      color: var(--text-black);
       letter-spacing: -0.02em;
     }
-
-    .logo span {
-      color: var(--accent);
-    }
-
-    .nav {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
+    .logo span { color: var(--text-white); }
+    .nav { display: flex; gap: 2rem; align-items: center; }
     .nav a {
       font-size: 0.9rem;
       font-weight: 500;
-      color: var(--text-black);
-      opacity: 0.7;
+      color: var(--text-white);
+      opacity: 0.85;
     }
-
-    .nav a:hover {
-      opacity: 1;
-      color: var(--accent);
-    }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
+    .nav a:hover { opacity: 1; }
     .nav-dot {
-      width: 6px;
-      height: 6px;
+      width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--text-white);
       animation: pulse 2s ease-in-out infinite;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(0.8); }
     }
 
-    /* Hero */
+    /* Hero with Slider */
     .hero {
       background: var(--bg-black);
       padding: 3rem 0;
     }
-
     .hero-grid {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
+    /* Main Slide */
     .hero-main {
       position: relative;
+      border-radius: 8px;
+      overflow: hidden;
     }
-
     .hero-main img {
       width: 100%;
       height: 480px;
       object-fit: cover;
+      display: block;
     }
-
     .hero-overlay {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
       padding: 2rem;
-      background: linear-gradient(transparent, rgba(0,0,0,0.95));
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
     }
-
+    .slide-nav {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+    .slide-btn {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 50%;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .slide-btn:hover { background: var(--bg-green); color: white; }
     .category {
       display: inline-block;
-      background: var(--accent);
+      background: var(--bg-green);
       color: white;
       font-size: 0.7rem;
       font-weight: 600;
@@ -154,14 +130,12 @@
       padding: 0.3rem 0.8rem;
       margin-bottom: 1rem;
     }
-
     .hero-main h1 {
       font-size: 2rem;
       font-weight: 700;
       line-height: 1.2;
       margin-bottom: 0.5rem;
     }
-
     .hero-meta {
       font-size: 0.85rem;
       color: var(--text-gray);
@@ -173,40 +147,36 @@
       flex-direction: column;
       gap: 1rem;
     }
-
     .hero-side-item {
       display: flex;
       gap: 1rem;
       background: var(--bg-dark);
       padding: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      flex: 1;
       transition: background 0.2s ease;
     }
-
-    .hero-side-item:hover {
-      background: #1a1a1a;
-    }
-
+    .hero-side-item:hover { background: #1f1f1f; }
     .hero-side-item img {
       width: 100px;
-      height: 70px;
+      height: 100%;
+      min-height: 70px;
       object-fit: cover;
+      border-radius: 2px;
     }
-
-    .hero-side-content {
-      flex: 1;
-    }
-
+    .hero-side-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
     .hero-side-content h3 {
       font-size: 0.9rem;
       font-weight: 600;
       line-height: 1.3;
-      margin-bottom: 0.3rem;
     }
-
     .hero-side-content .category {
       font-size: 0.55rem;
       padding: 0.15rem 0.4rem;
-      background: var(--text-gray);
+      background: #333;
+      display: inline-block;
+      margin-bottom: 0.3rem;
     }
 
     /* Section */
@@ -214,7 +184,6 @@
       background: var(--bg-black);
       padding: 4rem 0;
     }
-
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -223,7 +192,6 @@
       padding-bottom: 1rem;
       border-bottom: 1px solid #222;
     }
-
     .section-title {
       font-size: 1.5rem;
       font-weight: 700;
@@ -231,64 +199,41 @@
       align-items: center;
       gap: 0.8rem;
     }
-
     .section-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--accent);
       animation: pulse 2s ease-in-out infinite;
     }
-
-    .view-all {
-      font-size: 0.85rem;
-      color: var(--text-gray);
-    }
-
+    .view-all { font-size: 0.85rem; color: var(--text-gray); }
     .news-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
-
     .news-card {
       background: var(--bg-dark);
-      transition: transform 0.2s ease;
+      border-radius: 4px;
+      overflow: hidden;
     }
-
-    .news-card:hover {
-      transform: translateY(-4px);
-    }
-
+    .news-card:hover { transform: translateY(-4px); }
     .news-card img {
       width: 100%;
       height: 180px;
       object-fit: cover;
     }
-
-    .news-card-content {
-      padding: 1.2rem;
-    }
-
+    .news-card-content { padding: 1.2rem; }
     .news-card .category {
       font-size: 0.6rem;
       padding: 0.15rem 0.4rem;
       background: #222;
     }
-
     .news-card h3 {
       font-size: 1rem;
       font-weight: 600;
-      line-height: 1.3;
       margin: 0.8rem 0 0.5rem;
     }
-
-    .news-card p {
-      font-size: 0.85rem;
-      color: var(--text-gray);
-      line-height: 1.5;
-    }
-
+    .news-card p { font-size: 0.85rem; color: var(--text-gray); }
     .news-card-meta {
       font-size: 0.75rem;
       color: var(--text-gray);
@@ -304,18 +249,12 @@
       text-align: center;
       border-top: 1px solid #222;
     }
-
-    .footer p {
-      font-size: 0.85rem;
-      color: var(--text-gray);
-    }
+    .footer p { font-size: 0.85rem; color: var(--text-gray); }
 
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; }
       .news-grid { grid-template-columns: repeat(2, 1fr); }
-      .header-inner { flex-wrap: wrap; }
     }
-
     @media (max-width: 640px) {
       .news-grid { grid-template-columns: 1fr; }
       .nav { display: none; }
@@ -327,10 +266,7 @@
     <div class="header-inner">
       <a href="index2.html" class="logo">Pitch<span>Pulse</span></a>
       <nav class="nav">
-        <a href="#" class="nav-link">
-          <span>Latest</span>
-          <span class="nav-dot"></span>
-        </a>
+        <a href="#"><span>Latest</span> <span class="nav-dot"></span></a>
         <a href="#">Transfers</a>
         <a href="#">Leagues</a>
         <a href="#">Analysis</a>
@@ -342,11 +278,17 @@
     <div class="container">
       <div class="hero-grid">
         <div class="hero-main">
-          <img src="images/1.jpeg" alt="Featured">
-          <div class="hero-overlay">
-            <span class="category">Featured</span>
-            <h1>Champions League Final Set for Historic Showdown</h1>
-            <p class="hero-meta">May 9, 2026 • UEFA</p>
+          <a href="#">
+            <img src="images/1.jpeg" alt="Featured" id="main-slide">
+            <div class="hero-overlay">
+              <span class="category">Featured</span>
+              <h1>Champions League Final Set for Historic Showdown</h1>
+              <p class="hero-meta">May 9, 2026 • UEFA</p>
+            </div>
+          </a>
+          <div class="slide-nav">
+            <button class="slide-btn" onclick="prevSlide()">&lt;</button>
+            <button class="slide-btn" onclick="nextSlide()">&gt;</button>
           </div>
         </div>
         <div class="hero-side">
@@ -379,10 +321,7 @@
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">
-          Latest News
-          <span class="section-dot"></span>
-        </h2>
+        <h2 class="section-title">Latest News <span class="section-dot"></span></h2>
         <a href="#" class="view-all">View All →</a>
       </div>
       <div class="news-grid">
@@ -449,5 +388,25 @@
       <p>PitchPulse - Football News</p>
     </div>
   </footer>
+
+  <script>
+    const slides = [
+      { img: 'images/1.jpeg', title: 'Champions League Final Set for Historic Showdown', tag: 'Featured', meta: 'May 9, 2026 • UEFA' },
+      { img: 'images/2.jpeg', title: 'Record Transfer: Star Joins Premier League', tag: 'Transfers', meta: 'May 8, 2026 • Transfers' },
+      { img: 'images/3.jpeg', title: 'Title Race Heats Up As Teams Stack Points', tag: 'Analysis', meta: 'May 7, 2026 • Premier League' },
+      { img: 'images/4.jpeg', title: 'El Clasico: Real vs Barca Renew Rivalry', tag: 'Preview', meta: 'May 6, 2026 • La Liga' },
+      { img: 'images/5.jpeg', title: 'Derby Day Drama Across Europe', tag: 'Matchday', meta: 'May 5, 2026 • Premier League' }
+    ];
+    let current = 0;
+
+    function updateSlide() {
+      document.getElementById('main-slide').src = slides[current].img;
+      document.querySelector('.hero-main h1').textContent = slides[current].title;
+      document.querySelector('.hero-main .category').textContent = slides[current].tag;
+      document.querySelector('.hero-main .hero-meta').textContent = slides[current].meta;
+    }
+    function nextSlide() { current = (current + 1) % slides.length; updateSlide(); }
+    function prevSlide() { current = (current - 1 + slides.length) % slides.length; updateSlide(); }
+  </script>
 </body>
 </html>
