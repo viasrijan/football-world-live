@@ -68,15 +68,16 @@
     .section-dot { width: 8px; height: 8px; border-radius: 50%; background: #e74c3c; animation: redPulse 2s ease-in-out infinite; }
     .view-all { font-size: 0.8rem; color: var(--gray); }
     
-    /* Posts - Custom Frame Layout */
+    /* Posts - Custom Card Frame */
     .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .news-card { position: relative; overflow: hidden; background: #000; }
-    .news-card-img { width: 100%; height: 230px; object-fit: cover; display: block; }
-    .news-card-bottom { position: absolute; bottom: 0; left: 0; right: 0; height: 250px; background: linear-gradient(transparent, rgba(0,0,0,0.95)); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding: 1.5rem; text-align: center; }
-    .news-card .tag { margin-bottom: 0.5rem; }
-    .news-card h3 { font-size: 0.85rem; font-weight: 600; line-height: 1.3; color: white; margin-bottom: 0.3rem; }
-    .news-card p { font-size: 0.7rem; color: #cccccc; }
-    .news-card-meta { font-size: 0.6rem; color: #aaaaaa; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.3); }
+    .news-card { position: relative; background: #000; }
+    .news-card-top { width: 100%; height: 230px; overflow: hidden; }
+    .news-card-top img { width: 100%; height: 100%; object-fit: cover; }
+    .news-card-frame { position: absolute; bottom: 0; left: 0; right: 0; height: 250px; background: url('images/Post Card.png') center/cover no-repeat; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem; }
+    .news-card .tag { margin-bottom: 0.3rem; }
+    .news-card h3 { font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: white; margin-bottom: 0.2rem; }
+    .news-card p { font-size: 0.65rem; color: #cccccc; }
+    .news-card-meta { font-size: 0.55rem; color: #aaaaaa; margin-top: 0.4rem; padding-top: 0.4rem; border-top: 1px solid rgba(255,255,255,0.3); }
 
     .footer { background: var(--bg-dark); padding: 2.5rem 0; text-align: center; }
     .footer p { font-size: 0.8rem; color: var(--gray); }
@@ -129,8 +130,8 @@
       </div>
       <div class="news-grid">
         <article class="news-card">
-          <img src="images/5.jpeg" class="news-card-img" alt="Derby">
-          <div class="news-card-bottom">
+          <div class="news-card-top"><img src="images/5.jpeg" alt="Derby"></div>
+          <div class="news-card-frame">
             <span class="tag tag-matchday">Matchday</span>
             <h3>Derby Day Drama Across Europe</h3>
             <p>All the big derbies in packed weekend.</p>
@@ -138,8 +139,8 @@
           </div>
         </article>
         <article class="news-card">
-          <img src="images/6.jpeg" class="news-card-img" alt="Injury">
-          <div class="news-card-bottom">
+          <div class="news-card-top"><img src="images/6.jpeg" alt="Injury"></div>
+          <div class="news-card-frame">
             <span class="tag tag-news">News</span>
             <h3>Star Player Injury Update</h3>
             <p>Key player faces race against time.</p>
@@ -147,8 +148,8 @@
           </div>
         </article>
         <article class="news-card">
-          <img src="images/7.jpeg" class="news-card-img" alt="Contract">
-          <div class="news-card-bottom">
+          <div class="news-card-top"><img src="images/7.jpeg" alt="Contract"></div>
+          <div class="news-card-frame">
             <span class="tag tag-transfers">Transfers</span>
             <h3>Key Player Signs New Deal</h3>
             <p>Club secures future of star player.</p>
@@ -156,8 +157,8 @@
           </div>
         </article>
         <article class="news-card">
-          <img src="images/8.jpeg" class="news-card-img" alt="Manager">
-          <div class="news-card-bottom">
+          <div class="news-card-top"><img src="images/8.jpeg" alt="Manager"></div>
+          <div class="news-card-frame">
             <span class="tag tag-interview">Interview</span>
             <h3>Manager Speaks Out</h3>
             <p>Exclusive interview with top manager.</p>
@@ -165,8 +166,8 @@
           </div>
         </article>
         <article class="news-card">
-          <img src="images/9.jpeg" class="news-card-img" alt="Rising Star">
-          <div class="news-card-bottom">
+          <div class="news-card-top"><img src="images/9.jpeg" alt="Rising Star"></div>
+          <div class="news-card-frame">
             <span class="tag tag-features">Features</span>
             <h3>Rising Star Breaks Record</h3>
             <p>Young talent makes history.</p>
@@ -174,8 +175,8 @@
           </div>
         </article>
         <article class="news-card">
-          <img src="images/10.jpeg" class="news-card-img" alt="Referee">
-          <div class="news-card-bottom">
+          <div class="news-card-top"><img src="images/10.jpeg" alt="Referee"></div>
+          <div class="news-card-frame">
             <span class="tag tag-news">News</span>
             <h3>Referee Appointment News</h3>
             <p>Officials for key matches.</p>
