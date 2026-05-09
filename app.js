@@ -8,6 +8,23 @@ const LEAGUES = [
   { id: "4344", name: "MLS" },
 ];
 
+// Team logo URLs via API
+const TEAM_LOGOS = {
+  "Manchester City": "https://cdn.sofifa.net/teams/71.png",
+  "Liverpool": "https://cdn.sofifa.net/teams/70.png",
+  "Arsenal": "https://cdn.sofifa.net/teams/69.png",
+  "Chelsea": "https://cdn.sofifa.net/teams/68.png",
+  "Manchester United": "https://cdn.sofifa.net/teams/67.png",
+  "Tottenham": "https://cdn.sofifa.net/teams/73.png",
+  "Barcelona": "https://cdn.sofifa.net/teams/131.png",
+  "Real Madrid": "https://cdn.sofifa.net/teams/127.png",
+  "Bayern Munich": "https://cdn.sofifa.net/teams/112.png",
+  "PSG": "https://cdn.sofifa.net/teams/91.png",
+  "Juventus": "https://cdn.sofifa.net/teams/109.png",
+  "AC Milan": "https://cdn.sofifa.net/teams/108.png",
+  "Inter Milan": "https://cdn.sofifa.net/teams/107.png",
+};
+
 const els = {
   headlines: document.getElementById("headline-cards"),
   rumors: document.getElementById("rumor-cards"),
@@ -16,6 +33,8 @@ const els = {
   fixtures: document.getElementById("fixture-grid"),
   refreshBtn: document.getElementById("refresh-btn"),
   updatedAt: document.getElementById("last-updated"),
+  sliderTrack: document.getElementById("slider-track"),
+  sliderDots: document.querySelectorAll(".slider-dot"),
   status: {
     headlines: document.getElementById("headline-status"),
     rumors: document.getElementById("rumor-status"),
@@ -25,15 +44,52 @@ const els = {
   },
 };
 
+// Slider auto-rotation
+let currentSlide = 0;
+const totalSlides = 3;
+
+const initSlider = () => {
+  els.sliderDots.forEach((dot, index) => {
+    dot.addEventListener("click", () => goToSlide(index));
+  });
+  
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  }, 5000);
+};
+
+const goToSlide = (index) => {
+  currentSlide = index;
+  updateSlider();
+};
+
+const updateSlider = () => {
+  if (els.sliderTrack) {
+    els.sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+  els.sliderDots.forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentSlide);
+  });
+};
+
+// Format date as dd/mm/yy
+const formatDateShort = (dateObj) => {
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const year = String(dateObj.getFullYear()).slice(-2);
+  return `${day}/${month}/${year}`;
+};
+
 const setStatus = (key, label, tone = "neutral") => {
   const el = els.status[key];
   if (!el) return;
   el.textContent = label;
   const tones = {
-    neutral: "rgba(129, 150, 212, 0.2)",
-    live: "rgba(87, 217, 163, 0.18)",
-    warning: "rgba(255, 210, 125, 0.2)",
-    error: "rgba(255, 129, 129, 0.18)",
+    neutral: "var(--bg-surface)",
+    live: "var(--live-bg)",
+    warning: "#1a1404",
+    error: "var(--error-bg)",
   };
   el.style.background = tones[tone] ?? tones.neutral;
 };
@@ -43,8 +99,8 @@ const formatDate = (dateObj) =>
     weekday: "short",
     hour: "2-digit",
     minute: "2-digit",
-    month: "short",
-    day: "numeric",
+    month: "2-digit",
+    day: "2-digit",
   }).format(dateObj);
 
 const withTimeout = async (url, timeoutMs = 12000) => {
@@ -173,6 +229,17 @@ const renderDiscussions = (discussions) => {
   setStatus("discussions", "Live", "live");
 };
 
+const getTeamLogo = (teamName) => {
+  // Try to find a matching logo
+  for (const [key, url] of Object.entries(TEAM_LOGOS)) {
+    if (teamName && teamName.toLowerCase().includes(key.toLowerCase())) {
+      return url;
+    }
+  }
+  // Default placeholder
+  return null;
+};
+
 const renderScores = (events) => {
   const items = events.slice(0, 18);
   if (items.length === 0) {
@@ -183,12 +250,17 @@ const renderScores = (events) => {
 
   els.scores.innerHTML = items
     .map(
-      (event) => `<div class="score-row">
-      <div class="score-home">${safeText(event.strHomeTeam, "Home")}</div>
-      <div class="scoreline">${getScoreline(event)}</div>
-      <div class="score-away">${safeText(event.strAwayTeam, "Away")}</div>
-      <div class="score-meta">${safeText(event.strLeague, "League")} • ${safeText(event.strStatus || event.strTime || event.dateEvent, "Scheduled")}</div>
-    </div>`
+      (event) => {
+        const homeLogo = getTeamLogo(event.strHomeTeam);
+        const awayLogo = getTeamLogo(event.strAwayTeam);
+        const dateStr = event.dateEvent ? formatDateShort(new Date(event.dateEvent)) : "";
+        return `<div class="score-row">
+          <div class="score-home">${homeLogo ? `<img class="team-logo" src="${homeLogo}" alt="${event.strHomeTeam}" />` : ""}<span>${safeText(event.strHomeTeam, "Home")}</span></div>
+          <div class="scoreline">${getScoreline(event)}</div>
+          <div class="score-away">${awayLogo ? `<img class="team-logo" src="${awayLogo}" alt="${event.strAwayTeam}" />` : ""}<span>${safeText(event.strAwayTeam, "Away")}</span></div>
+          <div class="score-meta">${safeText(event.strLeague, "League")} • ${dateStr}</div>
+        </div>`;
+      }
     )
     .join("");
   setStatus("scores", "Live", "live");
@@ -216,10 +288,13 @@ const renderFixtures = (leagueData) => {
           <div class="league-list">
             ${topMatches
               .map(
-                (match) => `<div class="league-item">
-                <span>${safeText(match.strHomeTeam, "Home")} vs ${safeText(match.strAwayTeam, "Away")}</span>
-                <span>${safeText(match.dateEvent, "")}</span>
-              </div>`
+                (match) => {
+                  const dateStr = match.dateEvent ? formatDateShort(new Date(match.dateEvent)) : safeText(match.dateEvent, "");
+                  return `<div class="league-item">
+                  <span>${safeText(match.strHomeTeam, "Home")} vs ${safeText(match.strAwayTeam, "Away")}</span>
+                  <span>${dateStr}</span>
+                </div>`;
+                }
               )
               .join("")}
           </div>
@@ -230,8 +305,6 @@ const renderFixtures = (leagueData) => {
 };
 
 const loadAll = async () => {
-  els.refreshBtn.disabled = true;
-  els.updatedAt.textContent = "Refreshing feeds…";
   ["headlines", "rumors", "discussions", "scores", "fixtures"].forEach((k) => setStatus(k, "Loading", "neutral"));
 
   let events = [];
@@ -280,10 +353,8 @@ const loadAll = async () => {
     renderFixtures([]);
     setStatus("fixtures", "Feed error", "error");
   }
-
-  els.updatedAt.textContent = `Last updated ${formatDate(new Date())}`;
-  els.refreshBtn.disabled = false;
 };
 
-els.refreshBtn.addEventListener("click", loadAll);
+// Initialize slider and load data
+initSlider();
 loadAll();
