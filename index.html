@@ -3,176 +3,143 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PitchPulse | Football Headlines, Rumors & Scores</title>
-    <meta
-      name="description"
-      content="PitchPulse brings football headlines, transfer rumors, fan discussions, and live scorelines into one modern dark experience."
-    />
+    <title>Football World Live | The Beautiful Game</title>
+    <meta name="description" content="Your daily dose of football news, transfer rumors, and match analysis." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    
     <header class="site-header">
-      <div class="container nav-wrap">
-        <div class="brand">
-          <span class="brand-dot"></span>
-          <span class="brand-text">PitchPulse</span>
+      <div class="header-top">
+        <div class="container">
+          <span class="date-line">Monday, May 25, 2026</span>
+          <span class="edition-line">World Edition</span>
         </div>
+      </div>
+      <div class="container header-main">
+        <a href="/" class="brand">
+          <span class="brand-text">Football World</span>
+          <span class="brand-sub">Live</span>
+        </a>
         <nav class="nav-links">
           <a href="#headlines">Headlines</a>
-          <a href="#rumors">Rumors</a>
-          <a href="#discussions">Discussions</a>
+          <a href="#rumors">Transfers</a>
           <a href="#scores">Scores</a>
           <a href="#fixtures">Fixtures</a>
         </nav>
+        <button class="menu-toggle" aria-label="Menu">
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </header>
 
-    <section class="hero-slider">
-      <div class="slider-wrapper">
-        <div class="slider-track" id="slider-track">
-          <div class="slider-slide">
-            <img class="slider-image" src="images/1.jpeg" alt="Featured" />
-          </div>
-          <div class="slider-slide">
-            <img class="slider-image" src="images/2.jpeg" alt="Transfer" />
-          </div>
-          <div class="slider-slide">
-            <img class="slider-image" src="images/3.jpeg" alt="Title Race" />
-          </div>
-          <div class="slider-slide">
-            <img class="slider-image" src="images/4.jpeg" alt="El Clasico" />
-          </div>
-          <div class="slider-slide">
-            <img class="slider-image" src="images/5.jpeg" alt="Derby" />
-          </div>
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-main">
+          <article class="hero-card">
+            <img src="images/1.jpeg" alt="Featured" class="hero-image" />
+            <div class="hero-content">
+              <span class="tag">Featured</span>
+              <h1 class="hero-title">The Champions League Final: A Night to Remember</h1>
+              <p class="hero-excerpt">Europe's elite descend on Istanbul for the biggest match in club football, as two giants prepare for battle under the lights.</p>
+              <span class="byline">By Match Report • 5 min read</span>
+            </div>
+          </article>
         </div>
-        <button class="slider-arrow prev" id="slider-prev">&lt;</button>
-        <button class="slider-arrow next" id="slider-next">&gt;</button>
-        <div class="slider-nav">
-          <span class="slider-dot active" data-slide="0"></span>
-          <span class="slider-dot" data-slide="1"></span>
-          <span class="slider-dot" data-slide="2"></span>
-          <span class="slider-dot" data-slide="3"></span>
-          <span class="slider-dot" data-slide="4"></span>
+        <div class="hero-sidebar">
+          <article class="side-card">
+            <img src="images/2.jpeg" alt="Transfer" />
+            <div class="side-content">
+              <span class="tag">Transfers</span>
+              <h3>Record Breaking Deal on the Cards</h3>
+            </div>
+          </article>
+          <article class="side-card">
+            <img src="images/3.jpeg" alt="Title Race" />
+            <div class="side-content">
+              <span class="tag">Analysis</span>
+              <h3>Title Race Reaches Boiling Point</h3>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="top-news-section">
+    <section class="ticker-section">
       <div class="container">
-        <div class="section-head">
-          <h2>Top News</h2>
-        </div>
-        <div class="top-news-grid">
-          <article class="top-news-item">
-            <img class="top-news-item-image" src="images/6.jpeg" alt="News" />
-            <div class="top-news-item-content">
-              <h4 class="top-news-item-title">Champions League Final Venue Confirmed</h4>
-              <p class="top-news-item-meta">09.05.26 • UEFA</p>
-            </div>
-          </article>
-          <article class="top-news-item">
-            <img class="top-news-item-image" src="images/7.jpeg" alt="News" />
-            <div class="top-news-item-content">
-              <h4 class="top-news-item-title">Record Transfer Fee Agreed</h4>
-              <p class="top-news-item-meta">08.05.26 • Transfers</p>
-            </div>
-          </article>
-          <article class="top-news-item">
-            <img class="top-news-item-image" src="images/8.jpeg" alt="News" />
-            <div class="top-news-item-content">
-              <h4 class="top-news-item-title">Title Race Update</h4>
-              <p class="top-news-item-meta">07.05.26 • Premier League</p>
-            </div>
-          </article>
-          <article class="top-news-item">
-            <img class="top-news-item-image" src="images/9.jpeg" alt="News" />
-            <div class="top-news-item-content">
-              <h4 class="top-news-item-title">El Clasico Preview</h4>
-              <p class="top-news-item-meta">06.05.26 • La Liga</p>
-            </div>
-          </article>
-          <article class="top-news-item">
-            <img class="top-news-item-image" src="images/10.jpeg" alt="News" />
-            <div class="top-news-item-content">
-              <h4 class="top-news-item-title">Derby Day Schedule</h4>
-              <p class="top-news-item-meta">05.05.26 • Premier League</p>
-            </div>
-          </article>
+        <div class="ticker-wrapper">
+          <span class="ticker-label">Live</span>
+          <div class="ticker-track">
+            <span>Arsenal 2-1 Liverpool • </span>
+            <span>Real Madrid 3-2 Barcelona • </span>
+            <span>Bayern Munich 4-1 Dortmund • </span>
+            <span>PSG 2-0 Lyon • </span>
+            <span>Inter Milan 2-2 Juventus • </span>
+            <span>Arsenal 2-1 Liverpool • </span>
+            <span>Real Madrid 3-2 Barcelona • </span>
+          </div>
         </div>
       </div>
     </section>
 
     <main class="container">
       <section id="headlines" class="content-section">
-        <div class="section-head">
-          <h2>Trending Headlines</h2>
-          <span class="status-chip" id="headline-status">Loading</span>
+        <div class="section-header">
+          <h2 class="section-title">Trending Headlines</h2>
+          <span class="section-meta">Updated 5 min ago</span>
         </div>
-        <div class="cards-grid" id="headline-cards">
-          <article class="card skeleton-card"></article>
-          <article class="card skeleton-card"></article>
-          <article class="card skeleton-card"></article>
+        <div class="headlines-grid" id="headline-cards">
+          <!-- Populated by JS -->
         </div>
       </section>
 
-      <section id="rumors" class="content-section">
-        <div class="section-head">
-          <h2>Transfer Rumor Mill</h2>
-          <span class="status-chip" id="rumor-status">Loading</span>
-        </div>
-        <div class="cards-grid two-col" id="rumor-cards">
-          <article class="card skeleton-card"></article>
-          <article class="card skeleton-card"></article>
-        </div>
-      </section>
+      <div class="two-col-layout">
+        <section id="rumors" class="content-section">
+          <div class="section-header">
+            <h2 class="section-title">Transfer Rumor Mill</h2>
+          </div>
+          <div class="rumor-list" id="rumor-cards">
+            <!-- Populated by JS -->
+          </div>
+        </section>
 
-      <section id="discussions" class="content-section">
-        <div class="section-head">
-          <h2>Fan Discussions</h2>
-          <span class="status-chip" id="discussion-status">Loading</span>
-        </div>
-        <div class="cards-grid two-col" id="discussion-cards">
-          <article class="card skeleton-card"></article>
-          <article class="card skeleton-card"></article>
-        </div>
-      </section>
-
-      <section id="scores" class="content-section">
-        <div class="section-head">
-          <h2>Live & Latest Scores</h2>
-          <span class="status-chip" id="score-status">Loading</span>
-        </div>
-        <div class="scoreboard" id="scoreboard">
-          <div class="score-row skeleton-row"></div>
-          <div class="score-row skeleton-row"></div>
-          <div class="score-row skeleton-row"></div>
-        </div>
-      </section>
+        <section id="scores" class="content-section scores-section">
+          <div class="section-header">
+            <h2 class="section-title">Latest Results</h2>
+          </div>
+          <div class="scoreboard" id="scoreboard">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+      </div>
 
       <section id="fixtures" class="content-section">
-        <div class="section-head">
-          <h2>Upcoming Global Fixtures</h2>
-          <span class="status-chip" id="fixture-status">Loading</span>
+        <div class="section-header">
+          <h2 class="section-title">Upcoming Fixtures</h2>
         </div>
-        <div class="fixture-grid" id="fixture-grid">
-          <article class="card skeleton-card"></article>
-          <article class="card skeleton-card"></article>
-          <article class="card skeleton-card"></article>
+        <div class="fixtures-grid" id="fixture-grid">
+          <!-- Populated by JS -->
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-wrap">
-        <p>Built for football obsessives. Updated from public data feeds.</p>
+      <div class="container">
+        <div class="footer-brand">
+          <span class="brand-text">Football World</span>
+          <span class="brand-sub">Live</span>
+        </div>
+        <p class="footer-tagline">The beautiful game, delivered daily.</p>
+        <div class="footer-links">
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+        <p class="copyright">&copy; 2026 Football World Live. All rights reserved.</p>
       </div>
     </footer>
 

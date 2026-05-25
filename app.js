@@ -7,7 +7,6 @@ const LEAGUES = [
   { id: "4346", name: "Champions League" },
 ];
 
-// Team logo URLs via API
 const TEAM_LOGOS = {
   "Manchester City": "https://cdn.sofifa.net/teams/71.png",
   "Liverpool": "https://cdn.sofifa.net/teams/70.png",
@@ -21,7 +20,6 @@ const TEAM_LOGOS = {
   "Juventus": "https://cdn.sofifa.net/teams/109.png",
 };
 
-// Sample data - realistic football content
 const SAMPLE_SCORES = [
   { home: "Manchester City", away: "Arsenal", homeScore: 2, awayScore: 1, league: "Premier League", date: "09.05.26" },
   { home: "Real Madrid", away: "Barcelona", homeScore: 3, awayScore: 2, league: "La Liga", date: "08.05.26" },
@@ -47,6 +45,10 @@ const SAMPLE_FIXTURES = [
     { home: "Juventus", away: "Roma", date: "10.05.26" },
     { home: "Inter Milan", away: "Lazio", date: "10.05.26" },
   ]},
+  { league: "Bundesliga", matches: [
+    { home: "Bayern Munich", away: "Leverkusen", date: "10.05.26" },
+    { home: "Dortmund", away: "RB Leipzig", date: "11.05.26" },
+  ]},
 ];
 
 const SAMPLE_HEADLINES = [
@@ -56,10 +58,6 @@ const SAMPLE_HEADLINES = [
   { title: "PSG maintain lead with Lyon win", source: "Ligue 1", copy: "2-0 victory at Parc des Princes", href: "#" },
   { title: "Inter Milan stun Juventus with late equaliser", source: "Serie A", copy: "2-2 draw in Turin derby", href: "#" },
   { title: "Liverpool crush Chelsea at Anfield", source: "Premier League", copy: "3-1 win extends lead at top", href: "#" },
-  { title: "Atletico Madrid edge past Sevilla", source: "La Liga", copy: "1-0 win pushes into top 4", href: "#" },
-  { title: "Newcastle shock Manchester United", source: "Premier League", copy: "2-1 upset at Old Trafford", href: "#" },
-  { title: "AC Milan beat Roma in tight contest", source: "Serie A", copy: "1-0 win in crucial European race", href: "#" },
-  { title: "Dortmund bounce back with big win", source: "Bundesliga", copy: "3-0 victory over Frankfurt", href: "#" },
 ];
 
 const SAMPLE_RUMORS = [
@@ -69,308 +67,147 @@ const SAMPLE_RUMORS = [
   { title: "Bayern target former player return", ups: 1400, author: "BundesligaBuzz", num_comments: 195, href: "#" },
   { title: "Real Madrid eye €100M wonderkid", ups: 2100, author: "MadridNews", num_comments: 410, href: "#" },
   { title: "PSG make shock approach for veteran striker", ups: 1200, author: "FrenchFootball", num_comments: 165, href: "#" },
-  { title: "Liverpool consider surprise swoop for midfielder", ups: 980, author: "AnfieldTalk", num_comments: 145, href: "#" },
-  { title: "Inter Milan in negotiations for defender", ups: 870, author: "Calciomercato", num_comments: 120, href: "#" },
-  { title: "Tottenham prepare big offer for forward", ups: 1100, author: "SpursInsider", num_comments: 180, href: "#" },
-  { title: "Juventus target Premier League midfielder", ups: 920, author: "Tuttosport", num_comments: 135, href: "#" },
-];
-
-const SAMPLE_DISCUSSIONS = [
-  { title: "Who will win the title this season?", ups: 3400, author: "SoccerFan", num_comments: 890, href: "#" },
-  { title: "Best XI from this weekend", ups: 2100, author: "Tactics Expert", num_comments: 560, href: "#" },
-  { title: "Underrated players that deserve more recognition", ups: 1800, author: "FootballAnalyst", num_comments: 420, href: "#" },
-  { title: "Most controversial refereeing decisions", ups: 2900, author: "RefWatch", num_comments: 780, href: "#" },
-  { title: "Youth players to watch in 2026", ups: 1500, author: "ScoutNetwork", num_comments: 340, href: "#" },
-  { title: "Best managers in the world right now", ups: 2300, author: "CoachingCorner", num_comments: 610, href: "#" },
-  { title: "Biggest overachievers this season", ups: 1200, author: "StatsGuru", num_comments: 290, href: "#" },
-  { title: "Most exciting young talents", ups: 1900, author: "YouthExpert", num_comments: 450, href: "#" },
-  { title: "Transfer window predictions", ups: 2700, author: "RumourMill", num_comments: 720, href: "#" },
-  { title: "Iconic matches from this decade", ups: 1600, author: "HistoryBuff", num_comments: 380, href: "#" },
 ];
 
 const els = {
   headlines: document.getElementById("headline-cards"),
   rumors: document.getElementById("rumor-cards"),
-  discussions: document.getElementById("discussion-cards"),
   scores: document.getElementById("scoreboard"),
   fixtures: document.getElementById("fixture-grid"),
-  refreshBtn: document.getElementById("refresh-btn"),
-  updatedAt: document.getElementById("last-updated"),
-  sliderTrack: document.getElementById("slider-track"),
-  sliderDots: document.querySelectorAll(".slider-dot"),
-  sliderPrev: document.getElementById("slider-prev"),
-  sliderNext: document.getElementById("slider-next"),
-  status: {
-    headlines: document.getElementById("headline-status"),
-    rumors: document.getElementById("rumor-status"),
-    discussions: document.getElementById("discussion-status"),
-    scores: document.getElementById("score-status"),
-    fixtures: document.getElementById("fixture-status"),
-  },
 };
 
-// Slider auto-rotation
-let currentSlide = 0;
-const totalSlides = 5;
-
-const initSlider = () => {
-  els.sliderDots.forEach((dot, index) => {
-    dot.addEventListener("click", () => goToSlide(index));
-  });
-  
-  if (els.sliderPrev) {
-    els.sliderPrev.addEventListener("click", () => goToSlide((currentSlide - 1 + totalSlides) % totalSlides));
-  }
-  
-  if (els.sliderNext) {
-    els.sliderNext.addEventListener("click", () => goToSlide((currentSlide + 1) % totalSlides));
-  }
-  
-  setInterval(() => {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    updateSlider();
-  }, 5000);
-};
-
-const goToSlide = (index) => {
-  currentSlide = index;
-  updateSlider();
-};
-
-const updateSlider = () => {
-  if (els.sliderTrack) {
-    els.sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
-  els.sliderDots.forEach((dot, i) => {
-    dot.classList.toggle("active", i === currentSlide);
-  });
-};
-
-// Format date as dd.mm.yy
-const formatDateShort = (dateObj) => {
-  const day = String(dateObj.getDate()).padStart(2, "0");
-  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-  const year = String(dateObj.getFullYear()).slice(-2);
-  return `${day}.${month}.${year}`;
-};
-
-const setStatus = (key, label, tone = "neutral") => {
-  const el = els.status[key];
+const setStatus = (section, text, type) => {
+  const el = document.getElementById(`${section}-status`);
   if (!el) return;
-  el.textContent = label;
-  const tones = {
-    neutral: "var(--bg-surface)",
-    live: "var(--live-bg)",
-    warning: "#1a1404",
-    error: "var(--error-bg)",
-  };
-  el.style.background = tones[tone] ?? tones.neutral;
+  el.textContent = text;
+  el.className = `status-chip status-${type}`;
 };
 
-const formatDate = (dateObj) =>
-  new Intl.DateTimeFormat(undefined, {
-    weekday: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(dateObj);
-
-const withTimeout = async (url, timeoutMs = 12000) => {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const response = await fetch(url, { signal: controller.signal });
-    if (!response.ok) {
-      throw new Error(`Request failed: ${response.status}`);
-    }
-    return await response.json();
-  } finally {
-    clearTimeout(timer);
-  }
-};
-
-const todayISO = () => {
-  const now = new Date();
-  const offset = now.getTimezoneOffset();
-  const local = new Date(now.getTime() - offset * 60000);
-  return local.toISOString().slice(0, 10);
-};
-
-const safeText = (value, fallback) => (value && String(value).trim() ? String(value).trim() : fallback);
-
-const getScoreline = (event) => {
-  const home = event.intHomeScore;
-  const away = event.intAwayScore;
-  if (home === null || home === undefined || away === null || away === undefined) return "vs";
-  return `${home} - ${away}`;
-};
-
-const extractEvents = async () => {
-  const date = todayISO();
-  const url = `https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=${date}&s=Soccer`;
-  const data = await withTimeout(url);
-  return (data?.events || [])
-    .filter((e) => e.strSport === "Soccer")
-    .sort((a, b) => (a.strLeague || "").localeCompare(b.strLeague || ""));
-};
-
-const extractRedditPosts = async (subreddit, limit = 8) => {
-  const url = `https://www.reddit.com/r/${subreddit}/hot.json?limit=${limit}`;
-  const data = await withTimeout(url);
-  const children = data?.data?.children || [];
-  return children.map((item) => item.data).filter(Boolean);
-};
+// Image mapping for headlines
+const headlineImages = [
+  'images/6.jpeg', 'images/7.jpeg', 'images/8.jpeg',
+  'images/9.jpeg', 'images/10.jpeg', 'images/1.jpeg'
+];
 
 const renderHeadlines = () => {
-  const items = SAMPLE_HEADLINES.slice(0, 10);
+  const items = SAMPLE_HEADLINES;
+  
   if (items.length === 0) {
-    els.headlines.innerHTML = `<article class="card"><p class="card-copy">No headline feed available right now.</p></article>`;
-    setStatus("headlines", "Unavailable", "warning");
+    els.headlines.innerHTML = `<p>Headlines temporarily unavailable.</p>`;
     return;
   }
 
   els.headlines.innerHTML = items
-    .map(
-      (item) => `<article class="card">
-        <p class="card-meta">${item.source}</p>
-        <h3 class="card-title">${item.href ? `<a href="${item.href}">${item.title}</a>` : item.title}</h3>
-        <p class="card-copy">${item.copy}</p>
-      </article>`
-    )
+    .map((item, idx) => `<article class="headline-card">
+      <img class="card-image" src="${headlineImages[idx % headlineImages.length]}" alt="${item.title}" />
+      <div class="card-body">
+        <p class="card-source">${item.source}</p>
+        <h3 class="card-title">${item.title}</h3>
+        <p class="card-excerpt">${item.copy}</p>
+      </div>
+    </article>`)
     .join("");
-  setStatus("headlines", "Live", "live");
 };
 
 const renderRumors = () => {
-  const items = SAMPLE_RUMORS.slice(0, 6);
+  const items = SAMPLE_RUMORS;
+  
   if (items.length === 0) {
-    els.rumors.innerHTML = `<article class="card"><p class="card-copy">Rumor stream temporarily unavailable.</p></article>`;
-    setStatus("rumors", "Unavailable", "warning");
+    els.rumors.innerHTML = `<p>Rumor stream temporarily unavailable.</p>`;
     return;
   }
 
   els.rumors.innerHTML = items
-    .map(
-      (post) => `<article class="card">
-        <p class="card-meta">Transfer News • ${post.ups.toLocaleString()} votes</p>
-        <h3 class="card-title"><a href="${post.href}">${post.title}</a></h3>
-        <p class="card-copy">By ${post.author} • ${post.num_comments} comments</p>
-      </article>`
-    )
+    .map((post, idx) => `<article class="rumor-item">
+      <span class="rumor-rank">${String(idx + 1).padStart(2, '0')}</span>
+      <div class="rumor-content">
+        <h4 class="rumor-title">${post.title}</h4>
+        <p class="rumor-meta">By ${post.author}</p>
+        <div class="rumor-stats">
+          <span>${post.ups.toLocaleString()} upvotes</span>
+          <span>${post.num_comments} comments</span>
+        </div>
+      </div>
+    </article>`)
     .join("");
-  setStatus("rumors", "Live", "live");
-};
-
-const renderDiscussions = () => {
-  const items = SAMPLE_DISCUSSIONS.slice(0, 6);
-  if (items.length === 0) {
-    els.discussions.innerHTML = `<article class="card"><p class="card-copy">Discussion feed is currently empty.</p></article>`;
-    setStatus("discussions", "Unavailable", "warning");
-    return;
-  }
-
-  els.discussions.innerHTML = items
-    .map(
-      (post) => `<article class="card">
-        <p class="card-meta">r/soccer • ${post.ups.toLocaleString()} votes</p>
-        <h3 class="card-title"><a href="${post.href}">${post.title}</a></h3>
-        <p class="card-copy">By ${post.author} • ${post.num_comments} comments</p>
-      </article>`
-    )
-    .join("");
-  setStatus("discussions", "Live", "live");
 };
 
 const getTeamLogo = (teamName) => {
-  // Logos disabled - use text only
-  return null;
+  return TEAM_LOGOS[teamName] || null;
 };
 
 const renderScores = (events) => {
-  const items = events && events.length > 0 ? events.slice(0, 18) : SAMPLE_SCORES;
+  const items = events && events.length > 0 ? events.slice(0, 8) : SAMPLE_SCORES;
   
   if (items.length === 0) {
-    els.scores.innerHTML = `<div class="score-row"><span class="card-copy">Using sample data...</span></div>`;
-    setStatus("scores", "Sample", "warning");
+    els.scores.innerHTML = `<p>No scores available.</p>`;
     return;
   }
 
   els.scores.innerHTML = items
-    .map(
-      (event) => {
-        const home = event.home || event.strHomeTeam || "Home";
-        const away = event.away || event.strAwayTeam || "Away";
-        const league = event.league || event.strLeague || "League";
-        const dateStr = event.date || event.dateEvent || "";
-        const score = event.homeScore !== undefined ? `${event.homeScore} - ${event.awayScore}` : getScoreline(event));
-        
-        return `<div class="score-row">
-          <div class="score-home"><span>${home}</span></div>
-          <div class="scoreline">${score}</div>
-          <div class="score-away"><span>${away}</span></div>
-          <div class="score-meta">${league} • ${dateStr}</div>
-        </div>`;
-      }
-    )
+    .map((event) => {
+      const home = event.home || "Home";
+      const away = event.away || "Away";
+      const league = event.league || "League";
+      const score = `${event.homeScore} - ${event.awayScore}`;
+      
+      return `<div class="score-row">
+        <div class="score-team home">
+          <span>${home}</span>
+        </div>
+        <div class="score-result">
+          <span>${score}</span>
+        </div>
+        <div class="score-team away">
+          <span>${away}</span>
+        </div>
+      </div>`;
+    })
     .join("");
-  setStatus("scores", "Live", "live");
-};
-
-const extractLeagueFixtures = async (leagueId) => {
-  const url = `https://www.thesportsdb.com/api/v1/json/3/eventsnextleague.php?id=${leagueId}`;
-  const data = await withTimeout(url);
-  return data?.events || [];
+    
+  // Add league label
+  if (items.length > 0) {
+    els.scores.innerHTML += `<p class="score-league">${items[0].league}</p>`;
+  }
 };
 
 const renderFixtures = (leagueData) => {
-  const cards = (leagueData && leagueData.filter((entry) => entry.matches && entry.matches.length > 0).slice(0, 6)) || SAMPLE_FIXTURES;
+  const cards = leagueData && leagueData.filter((entry) => entry.matches && entry.matches.length > 0).slice(0, 4) || SAMPLE_FIXTURES;
   
   if (cards.length === 0) {
-    els.fixtures.innerHTML = `<article class="card"><p class="card-copy">Using sample fixtures...</p></article>`;
-    setStatus("fixtures", "Sample", "warning");
+    els.fixtures.innerHTML = `<p>No fixtures available.</p>`;
     return;
   }
 
   els.fixtures.innerHTML = cards
     .map((entry) => {
       const matches = entry.matches || [];
-      const name = entry.name || entry.league || "League";
+      const name = entry.league || "League";
       const topMatches = matches.slice(0, 4);
-      return `<article class="card league-card">
-          <h3>${name}</h3>
-          <div class="league-list">
-            ${topMatches
-              .map(
-                (match) => {
-                  const home = match.home || match.strHomeTeam || "Home";
-                  const away = match.away || match.strAwayTeam || "Away";
-                  const dateStr = match.date || match.dateEvent || "";
-                  return `<div class="league-item">
-                  <span>${home} vs ${away}</span>
-                  <span>${dateStr}</span>
-                </div>`;
-                }
-              )
-              .join("")}
-          </div>
-        </article>`;
+      return `<article class="fixture-card">
+        <h4 class="league-name">${name}</h4>
+        <div class="league-matches">
+          ${topMatches
+            .map((match) => {
+              const home = match.home || "Home";
+              const away = match.away || "Away";
+              const dateStr = match.date || "";
+              return `<div class="match-row">
+                <span class="match-teams">${home} vs ${away}</span>
+                <span class="match-date">${dateStr}</span>
+              </div>`;
+            })
+            .join("")}
+        </div>
+      </article>`;
     })
     .join("");
-  setStatus("fixtures", "Live", "live");
 };
 
-const loadAll = async () => {
-  ["headlines", "rumors", "discussions", "scores", "fixtures"].forEach((k) => setStatus(k, "Loading", "neutral"));
-  
-  // Render all sections with full sample data
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
   renderHeadlines();
   renderRumors();
-  renderDiscussions();
   renderScores(SAMPLE_SCORES);
   renderFixtures(SAMPLE_FIXTURES);
-};
-
-// Initialize slider and load data
-initSlider();
-loadAll();
+});
